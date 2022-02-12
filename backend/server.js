@@ -14,7 +14,7 @@ app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-app.post('/login', function(req, res){
+app.post("/login", function(req, res){
   let code = req.body.authcode;
   axios({
     method: "POST",

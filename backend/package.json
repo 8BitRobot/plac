@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongodb": "^4.2.0",

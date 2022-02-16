@@ -26,4 +26,10 @@ app.get('/testGet', function(req, res) {
     });
 });
 
+app.post('/searchDB', function(req, res) {
+    console.log(req.body);
+    db.find({}).toArray(function(err, dbres) {
+	res.send(dbres);
+    });
+});
 

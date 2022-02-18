@@ -1,0 +1,36 @@
+@use "../../_var.scss" as var;
+
+.ad-card-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    height: 252px;
+    width: 396px;
+    padding: 24px 21px;
+    box-sizing: border-box;
+    border-radius: var.$bradius;
+    box-shadow: var.$box-shadow;
+
+    h2 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 48px;
+
+        span {
+            color: var.$main-green;
+        }
+    }
+
+    p, a {
+        font-family: "Montserrat", sans-serif;
+        font-size: 20px;
+    }
+
+    a {
+        display: block;
+        text-align: right;
+        color: var.$main-blue;
+        font-style: italic;
+        font-weight: bold;
+    }
+}

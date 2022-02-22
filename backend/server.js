@@ -16,7 +16,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 
-var db = require('./mongo.js').collection('test2');
+var db = require('./mongo.js');
 
 let { clientID, clientSecret } = require("./githubsso.json");
 
@@ -25,11 +25,33 @@ app.listen(port, () => {
 });
 
 app.get('/testAdd', function(req, res){
-  db.insertOne({name: "Rishab", last: "Khurana"}, function(err, res) {
+    db.collection("test2").insertOne({name: "Rishab", last: "Khurana"}, function(err, res) {
     if (err) console.log(err);
     else console.log("inserted");
   });
   res.send("you tried");
+});
+
+function addToDb(item, col) {
+    var tempdb = db.collection(col);
+    tempdb.insertOne(item, function(err, res){
+	if (err) console.log(err);
+    });
+}
+
+function getFromDb(item, col, pres) {
+    db.collection(col).find(item).toArray(function(err, res) {
+	pres.send(res);
+    });
+}
+
+app.post('/addComment', function(req, res) {
+    addToDb(req.body, "comment");
+    res.send(req.body);
+});
+
+app.get('/getComment', function(req, res) {
+    getFromDb(req.body, "comment", res);
 });
 
 app.get('/testGet', function(req, res) {

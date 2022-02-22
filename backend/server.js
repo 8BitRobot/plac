@@ -19,6 +19,7 @@ app.use(express.json());
 var db = require('./mongo.js');
 
 let { clientID, clientSecret } = require("./githubsso.json");
+const { MinKey } = require("mongodb");
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
@@ -91,3 +92,26 @@ app.post('/login', function(req, res){
     });
   })
 });
+
+//return n most related
+function top(search, listDescript,n){
+  //n is 2
+  //listDescript is list of descriptions[["java","object","oriented","slow"],["c++","fast"],["rust","new"]]
+  //search is Set( ["fast","object"])( should be set)
+  let list =[];
+  for(let i=0;i<listDescript.length;i++){
+    let matches=0;
+    for(let element of listDescript[i]){
+      if(search.has(element)){
+        matches++;
+      }
+    }
+    list.append([matches/listDescript[i].length,i]);
+  }
+  list .sort(function(a,b){return a[0].compare(b[0])});
+  let ans=[];
+  for(let i =0;i<Math.min(n,list.length);i++){
+    ans.append(list[i][1]);
+  }
+  return ans;
+}

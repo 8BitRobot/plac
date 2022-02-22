@@ -18,8 +18,6 @@ app.use(express.json());
 
 
 
-let { clientID, clientSecret } = require("./githubsso.json");
-
 var db = require('./mongo.js');
 
 let { clientID, clientSecret } = require("./githubsso.json");

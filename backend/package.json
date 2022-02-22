@@ -18,7 +18,7 @@
     "express": "^4.17.1",
     "mongodb": "^4.2.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.15"
   },
   "scripts": {
     "start": "node server.js",

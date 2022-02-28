@@ -1,0 +1,93 @@
+@use "../../_var.scss" as var;
+
+.review-card-container {
+    display: grid;
+    grid-template-columns: 412px;
+    grid-template-rows: 300 px 113 px;
+    grid-template-areas: "descript" "info";
+    box-sizing: border-box;
+    border-radius: var.$bradius;
+    box-shadow: var.$box-shadow;
+    font-family: "Montserrat", sans-serif;
+}
+
+.review-card-descript{
+    grid-area: descript;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding: 24px 21px;
+
+    img{
+        height: 37;
+        width: 269;
+
+    }
+
+    h2{
+        font-size: 32;
+        font: "Monteserrat";
+
+        span{
+            font-size: 79;
+            font-style: bold;
+
+        }
+    }
+
+    p{
+        font-size: 16;
+        font: "Monteserrat";
+    }
+}
+
+.review-card-info{
+    grid-area: info;
+    background-color: "#DDDDDD";
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding: 24px 21px;
+
+
+    firstT{
+        color: "#057ACE";
+        font-size: 16;
+        font: "Manrope";
+        font-style: bold;
+    }
+
+    secondT{
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        padding: 24px, 21px;
+
+
+        authorInfo{
+            font: "Manrope";
+            font-size: 20;
+            font-style: bold;
+
+        }
+
+        topC{
+            color: "#21873D";
+            font-size: 14;
+            font-style: bold;
+            font: "Manrope";
+        }
+    }
+
+
+    last{
+        display: block;
+        text-align: right;
+        color: var.$main-blue;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    
+}
+

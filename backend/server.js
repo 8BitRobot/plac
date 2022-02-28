@@ -62,11 +62,20 @@ app.get("/get-comment", function (req, res) {
   getFromDb(req.body, "comment", res);
 });
 
+app.post("/add-language", function (req, res) {
+  addToDb(req.body, "language");
+  res.send(req.body);
+});
+
+app.get("/get-language", function (req, res) {
+  addToDb(req.body, "language");
+});
 app.get("/test-get", function (req, res) {
-  console.log(req);
-  db.findOne({ name: req.query.name }, function (err, dbres) {
-    res.send(dbres);
-  });
+  // console.log(req);
+  // db.collection("test2").find({ name: req.query.name }, function (err, dbres) {
+  //   res.send(dbres);
+  // });
+  getFromDb({}, "test2", res);
 });
 
 app.post("/search-db", function (req, res) {
@@ -128,5 +137,12 @@ function top(search, listDescript, n) {
 }
 
 //endpoint?
-app.get("/search-review", function (req, res) {});
 
+app.get("/search-review", function (req, res) {
+  const searchquery = new Set();
+  for (let i = 0; i < req.length(); i++) {
+    searchquery.add(req[i]);
+  }
+  let retlist = top(searchquery, search - db({}, "comments", null), 2);
+  res.send(retlist);
+});

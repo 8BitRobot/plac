@@ -62,6 +62,14 @@ app.get("/get-comment", function (req, res) {
   getFromDb(req.body, "comment", res);
 });
 
+app.post("/add-language", function(req,res){
+  addToDb(req.body, "language");
+  res.send(req.body);
+});
+
+app.get("/get-language",function(req,res){
+  addToDb(req.body,"language");
+});
 app.get("/test-get", function (req, res) {
   console.log(req);
   db.findOne({ name: req.query.name }, function (err, dbres) {

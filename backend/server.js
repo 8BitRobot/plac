@@ -27,7 +27,7 @@ app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-app.get("/testAdd", function (req, res) {
+app.get("/test-add", function (req, res) {
   db.collection("test2").insertOne(
     { name: "Rishab", last: "Khurana" },
     function (err, res) {
@@ -53,23 +53,23 @@ function getFromDb(item, col, pres) {
     });
 }
 
-app.post("/addComment", function (req, res) {
+app.post("/add-comment", function (req, res) {
   addToDb(req.body, "comment");
   res.send(req.body);
 });
 
-app.get("/getComment", function (req, res) {
+app.get("/get-comment", function (req, res) {
   getFromDb(req.body, "comment", res);
 });
 
-app.get("/testGet", function (req, res) {
+app.get("/test-get", function (req, res) {
   console.log(req);
   db.findOne({ name: req.query.name }, function (err, dbres) {
     res.send(dbres);
   });
 });
 
-app.post("/searchDB", function (req, res) {
+app.post("/search-db", function (req, res) {
   console.log(req.body);
   db.find({}).toArray(function (err, dbres) {
     res.send(dbres);
@@ -126,9 +126,4 @@ function top(search, listDescript, n) {
 }
 
 //endpoint?
-app.get("/searchReview", function (req, res) {});
-
-app.post("/searchReview", function (req, res) {
-  addToDb(req.body, "comment");
-  res.send(req.body);
-});
+app.get("/search-review", function (req, res) {});

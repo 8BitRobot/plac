@@ -146,3 +146,21 @@ app.get("/search-review", function (req, res) {
   let retlist = top(searchquery, search - db({}, "comments", null), 2);
   res.send(retlist);
 });
+
+//github rep
+function getReputation(username) {
+  axios({
+    method: "GET",
+    url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
+    headers: {
+      Accept: "application/json",
+    },
+  }).then((response) => {
+    res.cookie("token", response.data.access_token, { maxAge: 3600000 });
+    console.log("set cookie: " + response.data.access_token);
+    res.send({
+      status: 200,
+    });
+  });
+  return {};
+}

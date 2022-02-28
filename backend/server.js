@@ -71,10 +71,11 @@ app.get("/get-language",function(req,res){
   addToDb(req.body,"language");
 });
 app.get("/test-get", function (req, res) {
-  console.log(req);
-  db.findOne({ name: req.query.name }, function (err, dbres) {
-    res.send(dbres);
-  });
+ // console.log(req);
+  // db.collection("test2").find({ name: req.query.name }, function (err, dbres) {
+  //   res.send(dbres);
+  // });
+  getFromDb({},"test2",res);
 });
 
 app.post("/search-db", function (req, res) {

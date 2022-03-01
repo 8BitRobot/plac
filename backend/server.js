@@ -109,8 +109,6 @@ app.post("/login", function (req, res) {
   });
 });
 
-
-
 //return n most related
 function top(search, listDescript, n) {
   //n is 2
@@ -135,8 +133,6 @@ function top(search, listDescript, n) {
   }
   return ans;
 }
-
-//endpoint?
 
 app.get("/search-review", function (req, res) {
   const searchquery = new Set();
@@ -164,3 +160,27 @@ function getReputation(username) {
   });
   return {};
 }
+
+//get username from github api token
+app.get("/get-username", function (req, res) {
+  axios({
+    method: "GET",
+    url: `https://api.github.com/user`,
+    headers: {
+      Authorization: "token " + req.cookies.token,
+    },
+  }).then((response) => {
+    res.cookie("token", response.data.access_token, { maxAge: 3600000 });
+    console.log("set cookie: " + response.data.access_token);
+    res.send({
+      status: 200,
+    });
+  });
+  const searchquery = new Set();
+  for (let i = 0; i < req.length(); i++) {
+    searchquery.add(req[i]);
+  }
+  let retlist = top(searchquery, search - db({}, "comments", null), 2);
+  res.send(retlist);
+  return "8BitRobot";
+});

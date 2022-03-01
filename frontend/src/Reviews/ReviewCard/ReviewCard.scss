@@ -18,11 +18,11 @@
     justify-content: space-between;
     padding: 24px 21px;
 
-    img{
+   /* rating{
         height: 37;
         width: 269;
 
-    }
+    }*/
 
     h2{
         font-size: 32;
@@ -50,42 +50,49 @@
     padding: 24px 21px;
 
 
-    firstT{
+    p{
         color: "#057ACE";
         font-size: 16;
         font: "Manrope";
         font-style: bold;
     }
 
-    secondT{
+    .secondT{
         display: flex;
         flex-flow: row;
         justify-content: space-between;
         padding: 24px, 21px;
 
 
-        authorInfo{
+        .authorInfo{
+            p{
             font: "Manrope";
             font-size: 20;
             font-style: bold;
+            }
 
         }
 
-        topC{
+        .topC{
+            p{
             color: "#21873D";
             font-size: 14;
             font-style: bold;
             font: "Manrope";
+            }
         }
     }
 
 
-    last{
+    .last{
+
+        a{
         display: block;
         text-align: right;
         color: var.$main-blue;
         font-style: italic;
         font-weight: bold;
+        }
     }
 
     

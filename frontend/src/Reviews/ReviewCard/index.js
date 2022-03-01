@@ -12,9 +12,21 @@ function ReviewCard(props) {
             </div>
             <div>
                 <div className = "review-card-info">
-                    <p>{ props.firstT }</p>
-                    <p> {props.secondT} </p>
-                    <a> {props.last} </a>
+                    <p>written by</p>
+                    <div className = "secondT">
+                        <div className = "authorInfo">
+                           <p>{props.authorText}</p> 
+                        </div>
+                        <div className = "topC">
+                            <p>{props.topC}</p>
+                        </div>
+                    
+                    </div>
+
+                    <div className = "last">
+                        <a>{props.link}</a>
+                    </div>
+
 
                 </div>
             </div>

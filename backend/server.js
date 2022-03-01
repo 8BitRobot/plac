@@ -182,5 +182,7 @@ app.get("/get-username", function (req, res) {
   }
   let retlist = top(searchquery, search - db({}, "comments", null), 2);
   res.send(retlist);*/
-  res.send("8BitRobot");
+  res.send(JSON.stringify({
+    username: "8BitRobot"
+  }));
 });

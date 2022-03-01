@@ -143,33 +143,51 @@ app.get("/search-review", function (req, res) {
   res.send(retlist);
 });
 
-//github rep
-function getReputation(username) {
-  axios({
-    method: "GET",
-    url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
-    headers: {
-      Accept: "application/json",
-    },
-  }).then((response) => {
-    res.cookie("token", response.data.access_token, { maxAge: 3600000 });
-    console.log("set cookie: " + response.data.access_token);
-    res.send({
-      status: 200,
+function getUsername(token, process) {
+    axios({
+	method: "GET",
+	url: `https://api.github.com/user`,
+	headers: {
+	    Authorization: "token " + token,
+	},
+    }).then((response) => {
+	process(response.data.login);
     });
-  });
-  return {};
 }
+
+app.get("/get-reputation", function(req, res) {
+    async function process(username) {
+	let response = await axios({
+	    method: "GET",
+	    url: `https://api.github.com/users/${username}/repos`,
+	});
+	    
+	console.log(response);
+	repos = response.data;
+	data = {}
+	for (const repo of repos) {
+	    console.log(repo);
+	    let languages = await axios({
+		method: "GET",
+		url: `${repo.url}/languages`
+	    });
+	    languages = languages.data;
+	    for (const language in languages) {
+		if (!data.hasOwnProperty(language)) {
+		    data[language] = 0;
+		}
+		data[language] += languages[language];
+	    }
+	}
+	res.send(data)
+    }
+    getUsername(req.cookies.token, process)
+});
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
-  axios({
-    method: "GET",
-    url: `https://api.github.com/user`,
-    headers: {
-      Authorization: "token " + req.cookies.token,
-    },
-  }).then((response) => {
-      res.send(JSON.stringify({username: response.data.login}));
-  });
+    function process(username) {
+	res.send(JSON.stringify({username: username}));
+    }
+    getUsername(req.cookies.token, process);
 });

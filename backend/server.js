@@ -170,7 +170,7 @@ app.get("/get-username", function (req, res) {
       Authorization: "token " + req.cookies.token,
     },
   }).then((response) => {
-      res.send(response.data.login);
+      res.send(JSON.stringify({username: response.data.login}));
   });
 //  res.send("8BitRobot");
 });

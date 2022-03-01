@@ -109,8 +109,6 @@ app.post("/login", function (req, res) {
   });
 });
 
-
-
 //return n most related
 function top(search, listDescript, n) {
   //n is 2
@@ -136,8 +134,6 @@ function top(search, listDescript, n) {
   return ans;
 }
 
-//endpoint?
-
 app.get("/search-review", function (req, res) {
   const searchquery = new Set();
   for (let i = 0; i < req.length(); i++) {
@@ -145,4 +141,53 @@ app.get("/search-review", function (req, res) {
   }
   let retlist = top(searchquery, search - db({}, "comments", null), 2);
   res.send(retlist);
+});
+
+function getUsername(token, process) {
+    axios({
+	method: "GET",
+	url: `https://api.github.com/user`,
+	headers: {
+	    Authorization: "token " + token,
+	},
+    }).then((response) => {
+	process(response.data.login);
+    });
+}
+
+app.get("/get-reputation", function(req, res) {
+    async function process(username) {
+	let response = await axios({
+	    method: "GET",
+	    url: `https://api.github.com/users/${username}/repos`,
+	});
+	    
+	console.log(response);
+	repos = response.data;
+	data = {}
+	for (const repo of repos) {
+	    console.log(repo);
+	    let languages = await axios({
+		method: "GET",
+		url: `${repo.url}/languages`
+	    });
+	    languages = languages.data;
+	    for (const language in languages) {
+		if (!data.hasOwnProperty(language)) {
+		    data[language] = 0;
+		}
+		data[language] += languages[language];
+	    }
+	}
+	res.send(data)
+    }
+    getUsername(req.cookies.token, process)
+});
+
+//get username from github api token
+app.get("/get-username", function (req, res) {
+    function process(username) {
+	res.send(JSON.stringify({username: username}));
+    }
+    getUsername(req.cookies.token, process);
 });

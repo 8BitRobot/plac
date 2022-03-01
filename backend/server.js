@@ -163,24 +163,14 @@ function getReputation(username) {
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
-  /*axios({
+  axios({
     method: "GET",
     url: `https://api.github.com/user`,
     headers: {
       Authorization: "token " + req.cookies.token,
     },
   }).then((response) => {
-    res.cookie("token", response.data.access_token, { maxAge: 3600000 });
-    console.log("set cookie: " + response.data.access_token);
-    res.send({
-      status: 200,
-    });
+      res.send(response.data.login);
   });
-  const searchquery = new Set();
-  for (let i = 0; i < req.length(); i++) {
-    searchquery.add(req[i]);
-  }
-  let retlist = top(searchquery, search - db({}, "comments", null), 2);
-  res.send(retlist);*/
-  res.send("8BitRobot");
+//  res.send("8BitRobot");
 });

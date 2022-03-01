@@ -163,7 +163,7 @@ function getReputation(username) {
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
-  axios({
+  /*axios({
     method: "GET",
     url: `https://api.github.com/user`,
     headers: {
@@ -181,6 +181,6 @@ app.get("/get-username", function (req, res) {
     searchquery.add(req[i]);
   }
   let retlist = top(searchquery, search - db({}, "comments", null), 2);
-  res.send(retlist);
-  return "8BitRobot";
+  res.send(retlist);*/
+  res.send("8BitRobot");
 });

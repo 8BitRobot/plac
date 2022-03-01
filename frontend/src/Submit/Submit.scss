@@ -1,0 +1,60 @@
+@use "../_var.scss" as var;
+
+#submit-page {
+    padding: 55px;
+
+    h1 {
+        font-size: 64px;
+        margin: 0;
+        margin-bottom: 55px;
+    }
+}
+
+.form-input-container {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 28px;
+
+    label {
+        display: inline-block;
+        width: 30%;
+        text-align: right;
+        font-size: 30px;
+        font-family: "Montserrat", sans-serif;
+        font-style: italic;
+        font-weight: 400;
+    }
+
+    input, textarea {
+        display: inline-block;
+        width: 65%;
+        font-size: 20px;
+        font-family: "Manrope", sans-serif;
+    }
+
+    input {
+        background-color: transparent;
+        border: none;
+        border-bottom: 3px solid var.$text-gray;
+        outline: none;
+
+        &:focus {
+            border-bottom-color: var.$main-blue;
+        }
+    }
+
+    textarea {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        box-shadow: var.$box-shadow;
+        border-radius: var.$bradius;
+        padding: 15px;
+        box-sizing: border-box;
+
+        &:focus {
+            box-shadow: var.$box-shadow-focus;
+        }
+    }
+}

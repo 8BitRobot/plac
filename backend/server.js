@@ -172,5 +172,4 @@ app.get("/get-username", function (req, res) {
   }).then((response) => {
       res.send(JSON.stringify({username: response.data.login}));
   });
-//  res.send("8BitRobot");
 });

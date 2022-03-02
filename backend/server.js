@@ -76,7 +76,7 @@ app.get("/get-review", function (req, res) {
 });
 
 app.post("/login", function (req, res) {
-  if (req.cookies.token) {
+  if (req.cookies.token && req.cookies.token != "undefined") {
     console.log(req.cookies.token);
     console.log("Token already exists!");
     return;
@@ -176,6 +176,7 @@ app.get("/get-reputation", function(req, res) {
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
+  console.log(req.cookies);
     if (!req.cookies.hasOwnProperty("token") || (req.cookies["token"] === "undefined")) {
 	res.send(JSON.stringify({username: "Guest"}));
     }

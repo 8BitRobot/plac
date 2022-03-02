@@ -27,16 +27,17 @@ app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-app.get("/test-add", function (req, res) {
-  db.collection("test2").insertOne(
-    { name: "Rishab", last: "Khurana" },
-    function (err, res) {
-      if (err) console.log(err);
-      else console.log("inserted");
-    }
-  );
-  res.send("you tried");
-});
+function getUsername(token, process) {
+    axios({
+	method: "GET",
+	url: `https://api.github.com/user`,
+	headers: {
+	    Authorization: "token " + token,
+	},
+    }).then((response) => {
+	process(response.data.login);
+    });
+}
 
 function addToDb(item, col) {
   var tempdb = db.collection(col);
@@ -45,44 +46,33 @@ function addToDb(item, col) {
   });
 }
 
-function getFromDb(item, col, pres) {
-  db.collection(col)
-    .find(item)
-    .toArray(function (err, res) {
-      pres.send(res);
-    });
+function getFromDb(item, col, process) {
+    db.collection(col).find(item).toArray().then(process);
 }
 
-app.post("/add-comment", function (req, res) {
-  addToDb(req.body, "comment");
-  res.send(req.body);
+app.post("/add-review", function (req, res) {
+    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link")) {
+	res.send({status: 400});
+    }
+    else {
+	function process(username) {
+	    data = req.body;
+	    data["username"] = username;
+	    addToDb(data, "reviews");
+	    res.send({status : 200});
+	}
+	getUsername(req.cookies.token, process);
+    }
 });
 
-app.get("/get-comment", function (req, res) {
-  getFromDb(req.body, "comment", res);
-});
-
-app.post("/add-language", function (req, res) {
-  addToDb(req.body, "language");
-  res.send(req.body);
-});
-
-app.get("/get-language", function (req, res) {
-  addToDb(req.body, "language");
-});
-app.get("/test-get", function (req, res) {
-  // console.log(req);
-  // db.collection("test2").find({ name: req.query.name }, function (err, dbres) {
-  //   res.send(dbres);
-  // });
-  getFromDb({}, "test2", res);
-});
-
-app.post("/search-db", function (req, res) {
-  console.log(req.body);
-  db.find({}).toArray(function (err, dbres) {
-    res.send(dbres);
-  });
+app.get("/get-review", function (req, res) {
+    function process(reviews) {
+	for (var review of reviews) {
+	    review["top_contributor"] = true;
+	}
+	res.send(reviews);
+    }
+    getFromDb(req.body, "reviews", process);
 });
 
 app.post("/login", function (req, res) {
@@ -155,7 +145,6 @@ function getUsername(token, process) {
 	process(response.data.login);
     });
 }
-
 app.get("/get-reputation", function(req, res) {
     async function process(username) {
 	let response = await axios({

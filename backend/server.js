@@ -27,16 +27,6 @@ app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-app.get("/test-add", function (req, res) {
-  db.collection("test2").insertOne(
-    { name: "Rishab", last: "Khurana" },
-    function (err, res) {
-      if (err) console.log(err);
-      else console.log("inserted");
-    }
-  );
-  res.send("you tried");
-});
 function getUsername(token, process) {
     axios({
 	method: "GET",
@@ -83,30 +73,6 @@ app.get("/get-review", function (req, res) {
 	res.send(reviews);
     }
     getFromDb(req.body, "reviews", process);
-});
-
-app.post("/add-language", function (req, res) {
-  addToDb(req.body, "language");
-  res.send(req.body);
-});
-
-app.get("/get-language", function (req, res) {
-  addToDb(req.body, "language");
-});
-
-app.get("/test-get", function (req, res) {
-  // console.log(req);
-  // db.collection("test2").find({ name: req.query.name }, function (err, dbres) {
-  //   res.send(dbres);
-  // });
-  getFromDb({}, "test2", res);
-});
-
-app.post("/search-db", function (req, res) {
-  console.log(req.body);
-  db.find({}).toArray(function (err, dbres) {
-    res.send(dbres);
-  });
 });
 
 app.post("/login", function (req, res) {

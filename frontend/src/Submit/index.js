@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Rating from  "../shared/Rating";
 import "./Submit.scss";
 
 function Submit() {
@@ -29,8 +30,14 @@ function Submit() {
 
     return (
         <div id="submit-page" className="App">
-            <h1 id="write-review-header">Write A Review</h1>
+            <h1 id="write-review-header">Write a Review</h1>
             <div>
+                <div id="rating" className="form-input-container">
+                    <label>Rating:</label>
+                    <div>
+                        <Rating />
+                    </div>
+                </div>
                 <div id="summary" className="form-input-container">
                     <label htmlFor="summary-input">Summary:</label>
                     <input type="text"

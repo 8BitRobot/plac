@@ -16,6 +16,10 @@
     justify-content: space-between;
     margin-bottom: 28px;
 
+    &:first-child > div {
+        width: 65%;
+    }
+
     label {
         display: inline-block;
         width: 30%;

@@ -144,6 +144,7 @@ app.get("/search-review", function (req, res) {
 });
 
 function getUsername(token, process) {
+    console.log("WAS HERE");
     axios({
 	method: "GET",
 	url: `https://api.github.com/user`,
@@ -186,8 +187,14 @@ app.get("/get-reputation", function(req, res) {
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
-    function process(username) {
-	res.send(JSON.stringify({username: username}));
+    if (!req.cookies.hasOwnProperty("token") || (req.cookies["token"] === "undefined")) {
+	res.send(JSON.stringify({username: "Guest"}));
     }
-    getUsername(req.cookies.token, process);
+    else {
+	function process(username) {
+	    res.send(JSON.stringify({username: username}));
+	}
+	getUsername(req.cookies.token, process);
+    }
 });
+

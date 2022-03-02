@@ -8,6 +8,26 @@
         margin: 0;
         margin-bottom: 55px;
     }
+
+    #submit-button {
+        display: inline-block;
+        background-color: #057ACE;
+        border-radius: 12px;
+        color: #FFFFFF;
+        text-align: center;
+        line-height: 66px; 
+        font-size: 30px;
+        outline: none;
+        border: none;
+        font-family: Montserrat;
+        font-style: normal;
+        box-sizing: border-box;
+        width: 321px;
+        height: 66px;
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .form-input-container {

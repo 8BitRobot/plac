@@ -3,9 +3,9 @@ import Rating from  "../shared/Rating";
 import "./Submit.scss";
 
 function Submit() {
-    const [ summary, setSummary ] = useState("");
-    const [ description, setDesc ] = useState("");
-    const [ projectLink, setLink ] = useState("");
+  const [summary, setSummary] = useState("");
+  const [description, setDesc] = useState("");
+  const [projectLink, setLink] = useState("");
 
     async function submitReview() {
         let request = await fetch("http://localhost:4000/add-review", {
@@ -18,7 +18,7 @@ function Submit() {
                 rating: 3,
                 summary: summary,
                 description: description,
-                link: projectLink
+                link: projectLink,
             }),
         }).catch((error) => {
             console.error(error);
@@ -27,7 +27,6 @@ function Submit() {
         console.log("Success!");
         console.log(response);
     }
-
     return (
         <div id="submit-page" className="App">
             <h1 id="write-review-header">Write a Review</h1>
@@ -50,9 +49,9 @@ function Submit() {
                 <div id="description" className="form-input-container">
                     <label htmlFor="description-input">Description:</label>
                     <textarea rows="7"
-                              id="description-input"
-                              name="description"
-                              onChange={(e) => setDesc(e.target.value)}
+                            id="description-input"
+                            name="description"
+                            onChange={(e) => setDesc(e.target.value)}
                     ></textarea>
                 </div>
                 <div id="project-link" className="form-input-container">
@@ -67,8 +66,12 @@ function Submit() {
                 <button type="submit" onClick={submitReview}>Submit</button>
                 {/* TODO: style this */}
             </div>
-        </div>
-    )
+        <button id="submit-button" type="submit" onClick={submitReview}>
+        Submit
+        </button>
+        {/* TODO: style this */}
+    </div>
+  );
 }
 
 export default Submit;

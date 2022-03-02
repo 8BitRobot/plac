@@ -86,7 +86,7 @@ app.post("/search-db", function (req, res) {
 });
 
 app.post("/login", function (req, res) {
-  if (req.cookies.token) {
+  if (req.cookies.token && req.cookies.token != "undefined") {
     console.log(req.cookies.token);
     console.log("Token already exists!");
     return;

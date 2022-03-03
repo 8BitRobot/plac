@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Rating from  "../shared/Rating";
 import "./Submit.scss";
 
 function Submit() {
-  const [summary, setSummary] = useState("");
-  const [description, setDesc] = useState("");
-  const [projectLink, setLink] = useState("");
+    const [rating, setRating] = useState(0);
+    const [summary, setSummary] = useState("");
+    const [description, setDesc] = useState("");
+    const [projectLink, setLink] = useState("");
 
     async function submitReview() {
         let request = await fetch("http://localhost:4000/add-review", {
@@ -34,7 +35,7 @@ function Submit() {
                 <div id="rating" className="form-input-container">
                     <label>Rating:</label>
                     <div>
-                        <Rating />
+                        <Rating value={ rating } setRating={ setRating }/>
                     </div>
                 </div>
                 <div id="summary" className="form-input-container">
@@ -63,13 +64,9 @@ function Submit() {
                         onChange={(e) => setLink(e.target.value)}
                     />
                 </div>
-                <button type="submit" onClick={submitReview}>Submit</button>
+                <button id="submit-button" type="submit" onClick={submitReview}>Submit</button>
                 {/* TODO: style this */}
             </div>
-        <button id="submit-button" type="submit" onClick={submitReview}>
-        Submit
-        </button>
-        {/* TODO: style this */}
     </div>
   );
 }

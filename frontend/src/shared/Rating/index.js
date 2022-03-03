@@ -1,22 +1,19 @@
-import React, { useState } from "react";
-import { FaRegCircle } from "react-icons/fa";
+import React from "react";
 import "./Rating.scss";
 
-const Rate = () => {
-  const [rate, setRate] = useState(0);
-
+const Rate = (props) => {
   return (
     <div className="rating-container">
-      {[...Array(5)].map((item, ind) => {
+      {[...Array(5)].map((_, ind) => {
         var userRating = ind + 1;
         return (
           <div key={ind}>
             <div
               className={
                 "rating-circle" +
-                (rate >= userRating ? " filled" : "")
+                (props.value >= userRating ? " filled" : "")
               }
-              onClick={() => setRate(userRating)}
+              onClick={() => props.setRating(userRating)}
             ></div>
           </div>
         );

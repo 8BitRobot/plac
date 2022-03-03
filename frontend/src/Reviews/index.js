@@ -1,41 +1,13 @@
 import { useEffect } from "react";
 
-import GithubMark from "../assets/github_logo.png";
 
-import "./Homepage.scss";
+import "./Review.scss";
 
-import AdCard from "./AdCard";
+import ReviewCardCard from "./ReviewCard";
 
-let client_id = "66e07c977ca0164c8fa6";
-let scopes = "read:user read:org repo"
 
-function Homepage() {
-  async function login(code) {
-    let request = await fetch("http://localhost:4000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        authcode: code,
-      }),
-    }).catch((error) => {
-      console.error(error);
-    });
-    let response = await request.json()
-    console.log("Success!");
-    console.log(response);
-  }
-  useEffect(() => {
-    const url = window.location.href;
-    const urlParams = new URLSearchParams((new URL(url)).search);
-    let code = urlParams.get("code");
-    if (url.includes("?code=")) {
-      login(code);
-    }
-  });
-    
+
+function reviewPage() {
   return (
     <div className="App">
       <div id="headlines">
@@ -83,4 +55,7 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default Reviews;
+
+
+

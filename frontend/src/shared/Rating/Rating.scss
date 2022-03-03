@@ -1,0 +1,27 @@
+@use "../../_var.scss" as var;
+
+.rating-container {
+   display: flex;
+   align-items: center;
+}
+
+div:first-child > .rating-circle {
+    margin-left: 0;
+}
+
+div:last-child > .rating-circle {
+    margin-right: 0;
+}
+
+.rating-circle {
+    height: 36px;
+    width: 36px;
+    margin: 0 10px;
+    border-radius: 36px;
+    border: 2px solid var.$main-blue;
+    cursor: pointer;
+
+    &.filled {
+        background-color: var.$main-blue;
+    }
+}

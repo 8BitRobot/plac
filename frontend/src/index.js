@@ -7,6 +7,7 @@ import {
 import ReactDOM from "react-dom";
 import "./index.scss";
 import Homepage from "./Homepage";
+import Submit from "./Submit";
 import Header from "./shared/Header";
 import reportWebVitals from "./reportWebVitals";
 
@@ -15,7 +16,8 @@ ReactDOM.render(
     <Header />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <Homepage /> } />
+        {/* <Route path="/" element={ <Homepage /> } /> */}
+        <Route path="/" element={ <Submit /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

@@ -1,47 +1,31 @@
 @use "../_var.scss" as var;
 
-#headlines {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+.Reviews {
+  padding-left:  55px;
+  padding-top: 0px
+}
+
+#review-subject {
+  font-family: "Monteserrat", "Manrope";
 
   h1 {
-    font-size: 64px;
-    margin: 110px 0 80px;
+    font-size: 30px;
+    font-family: "Monteserrat";
+    color: #000000;
+    font-weight: 500;
     
     span {
-      @include var.text-fill(black);
+      font-size:70px;
+      font-family: 'Manrope';
+      font-weight: 700;
+      color: #000000;
     }
   }
 }
 
-#github-sign-in {
-  display: inline-block;
-  width: max-content;
-  height: 66px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  background-color: black;
-  text-decoration: none;
-  border-radius: var.$bradius;
 
-  span {
-    display: inline-block;
-    color: var.$background;
-    font-family: "Montserrat", sans-serif;
-    font-size: 22px;
-    line-height: 42px;
-    margin-right: 20px;
-    vertical-align: top;
-  }
+#review-cards {
 
-  img {
-    height: 42px;
-  }
-}
-
-#ad-cards {
-  margin-top: 88px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;

@@ -6,8 +6,8 @@ function ReviewCard(props) {
         <div className="review-card-container">
             <div>
                 <div className="review-card-descript">
-                <h2>{ props.h2 }</h2>
-                <p>{ props.p}</p>
+                <h2>{ props.titleText }</h2>
+                <p>{ props.secondText}</p>
                 </div>
             </div>
             <div>

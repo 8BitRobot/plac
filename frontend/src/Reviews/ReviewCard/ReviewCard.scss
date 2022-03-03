@@ -3,7 +3,7 @@
 .review-card-container {
     display: grid;
     grid-template-columns: 412px;
-    grid-template-rows: 300 px 113 px;
+    grid-template-rows: 284px 129px;
     grid-template-areas: "descript" "info";
     box-sizing: border-box;
     border-radius: var.$bradius;
@@ -24,12 +24,16 @@
 
     }*/
 
-    h2{
-        font-size: 32;
-        font: "Monteserrat";
+    h2 {
+       // margin-top:16px;
+        //margin-left:27px;
 
-        span{
-            font-size: 79;
+        font-size: 102;
+        font: "Monteserrat";
+        color: #000000;
+
+        span {
+            font-size: 100;
             font-style: bold;
 
         }
@@ -43,24 +47,27 @@
 
 .review-card-info{
     grid-area: info;
-    background-color: "#DDDDDD";
+    background-color: #DDDDDD;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    padding: 24px 21px;
+    //padding: 24px 21px;
 
 
     p{
-        color: "#057ACE";
+        margin-top:16px;
+        margin-left:27px;
+        color: #057ACE;
         font-size: 16;
         font: "Manrope";
-        font-style: bold;
+        font-weight: 700;
     }
 
     .secondT{
         display: flex;
         flex-flow: row;
         justify-content: space-between;
+        
         padding: 24px, 21px;
 
 
@@ -68,6 +75,7 @@
             p{
             font: "Manrope";
             font-size: 20;
+            color: #000000;
             font-style: bold;
             }
 
@@ -75,7 +83,7 @@
 
         .topC{
             p{
-            color: "#21873D";
+            color: #21873D;
             font-size: 14;
             font-style: bold;
             font: "Manrope";

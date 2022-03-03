@@ -7,6 +7,7 @@ import {
 import ReactDOM from "react-dom";
 import "./index.scss";
 import Homepage from "./Homepage";
+import ReviewPage from "./Reviews";
 import Header from "./shared/Header";
 import reportWebVitals from "./reportWebVitals";
 
@@ -15,7 +16,7 @@ ReactDOM.render(
     <Header />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <Homepage /> } />
+        <Route path="/" element={ <ReviewPage /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

@@ -8,6 +8,7 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import Homepage from "./Homepage";
 import ReviewPage from "./Reviews";
+import Submit from "./Submit";
 import Header from "./shared/Header";
 import reportWebVitals from "./reportWebVitals";
 

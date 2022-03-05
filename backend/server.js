@@ -187,3 +187,16 @@ app.get("/get-username", function (req, res) {
 	getUsername(req.cookies.token, process);
     }
 });
+
+app.get("/get-libraries", function(req, res) {
+    function process(libraries) {
+	let matched = [];
+	for (var library of libraries) {
+	    if (library["name"].substr(0, req.body.characters.length) === req.body.characters) {
+		matched.push(library["name"]);
+	    }
+	}
+	res.send(JSON.stringify(matched));
+    }
+    getFromDb({}, "libraries", process);
+})

@@ -176,6 +176,7 @@ app.get("/get-reputation", function(req, res) {
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
+  //console.log(req.cookies);
     if (req.cookies.prototype === null || !req.cookies.hasOwnProperty("token") || (req.cookies["token"] === "undefined")) {
 	res.send(JSON.stringify({username: "Guest"}));	
     }

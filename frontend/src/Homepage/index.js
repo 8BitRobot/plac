@@ -31,7 +31,6 @@ function Homepage() {
     const url = window.location.href;
     const urlParams = new URLSearchParams((new URL(url)).search);
     let code = urlParams.get("code");
-
     if (url.includes("?code=")) {
       login(code);
     }

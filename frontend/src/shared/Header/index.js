@@ -28,8 +28,8 @@ function Header() {
         <header>
             <h1>p<span>la</span>c.</h1>
             <div id="header-links">
-                <a>reviews</a>
-                <a id="header-submit">submit</a>
+                <a href="review">reviews</a>
+                <a id="header-submit" href="submit">submit</a>
                 <img id="profile-picture" src={ "https://www.github.com/" + username + ".png" }/>
             </div>
         </header>

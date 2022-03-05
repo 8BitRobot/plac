@@ -51,7 +51,7 @@ function getFromDb(item, col, process) {
 }
 
 app.post("/add-review", function (req, res) {
-    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") || (!req.cookies.token || req.cookies.token === "undefined")) {
+    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") || !req.body.hasOwnProperty("name") || (!req.cookies.token || req.cookies.token === "undefined")) {
 	res.send({status: 400});
     }
     else {

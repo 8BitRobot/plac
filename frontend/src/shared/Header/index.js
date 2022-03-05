@@ -1,4 +1,5 @@
 import "./Header.scss";
+import { ReactComponent as Search } from "../../assets/search.svg";
 import { useEffect, useState } from "react";
 
 function Header() {
@@ -28,8 +29,12 @@ function Header() {
         <header>
             <h1>p<span>la</span>c.</h1>
             <div id="header-links">
-                <a href="review">reviews</a>
-                <a id="header-submit" href="submit">submit</a>
+                <div className="searchBar">
+                    <Search />
+                    <input type = "text" id = "input" placeholder = "Search"></input>
+                </div>
+                <a>reviews</a>
+                <a id="header-submit">submit</a>
                 <img id="profile-picture" src={ "https://www.github.com/" + username + ".png" }/>
             </div>
         </header>

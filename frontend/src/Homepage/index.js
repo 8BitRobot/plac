@@ -39,7 +39,7 @@ function Welcome() {
 		 <img src={ GithubMark } alt="Github Logo" /> </a>);
     }
     else {
-	return (<div> Welcome {username}! </div>)
+	return (<span id="welcome" > Welcome,<b> {username}</b>. </span>)
     }
 }
 

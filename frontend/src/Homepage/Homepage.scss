@@ -7,11 +7,19 @@
 
   h1 {
     font-size: 64px;
-    margin: 110px 0 80px;
+    margin: 110px 0 10px 0;
     
     span {
       @include var.text-fill(black);
     }
+  }
+  #welcome{
+    font-size:30px;
+    font-weight:normal;
+    font-family:"Montserrat"
+  }
+  b{
+    font-family: "Manrope";
   }
 }
 

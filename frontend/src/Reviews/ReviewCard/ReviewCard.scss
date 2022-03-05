@@ -1,100 +1,133 @@
 @use "../../_var.scss" as var;
 
 .review-card-container {
-    display: grid;
-    grid-template-columns: 412px;
-    grid-template-rows: 300 px 113 px;
-    grid-template-areas: "descript" "info";
+    display: flex;
+    flex-flow: column;
+    width: 413px;
     box-sizing: border-box;
     border-radius: var.$bradius;
     box-shadow: var.$box-shadow;
     font-family: "Montserrat", sans-serif;
+
+    & > div:first-child {
+        flex-grow: 1;
+        padding: 24px;
+    }
 }
 
 .review-card-descript{
-    grid-area: descript;
+    margin-top: 23px;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    padding: 24px 21px;
 
-   /* rating{
-        height: 37;
-        width: 269;
+    p {
+        font-size: 16;
+        font-family: "Montserrat", sans-serif;
+    }
+}
 
-    }*/
+.title-text-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    
+    & > * {
+        margin: 0;
+        display: inline-block;
+        height: 71px;
 
-    h2{
-        font-size: 32;
-        font: "Monteserrat";
-
-        span{
-            font-size: 79;
-            font-style: bold;
-
+        &:last-child {
+            flex-grow: 1;
+            padding-left: 10px;
         }
     }
 
-    p{
-        font-size: 16;
-        font: "Monteserrat";
+    p {
+        margin: 0;
+        height: 100%;
+        font-family: "Manrope", sans-serif;
+        font-size: 80px;
+        line-height: 71px;
+        font-weight: bold;
+    }
+
+    h2 {
+        display: inline;
+        margin: 0;
+        height: 100%;
+        font-size: 32px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        color: #000000;
     }
 }
 
 .review-card-info{
-    grid-area: info;
-    background-color: "#DDDDDD";
+    background-color: #DDDDDD;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    padding: 24px 21px;
+    padding: 14px 21px;
 
-
-    p{
-        color: "#057ACE";
-        font-size: 16;
-        font: "Manrope";
-        font-style: bold;
-    }
-
-    .secondT{
-        display: flex;
-        flex-flow: row;
-        justify-content: space-between;
-        padding: 24px, 21px;
-
-
-        .authorInfo{
-            p{
-            font: "Manrope";
-            font-size: 20;
-            font-style: bold;
-            }
-
+    .first {
+        & > p:first-child {
+            margin: 0;
+            color: #057ACE;
+            font-size: 16px;
+            line-height: 34px;
+            font-family: "Manrope", sans-serif;
+            font-weight: 700;
         }
 
-        .topC{
-            p{
-            color: "#21873D";
-            font-size: 14;
-            font-style: bold;
-            font: "Manrope";
+        .secondT{
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+
+            .authorInfo{
+                p {
+                    margin: 0;
+                    font-family: "Manrope", sans-serif;
+                    font-size: 20;
+                    color: #000000;
+                    font-style: bold;
+                }
+
+            }
+
+            .topC {
+                display: inline-block;
+                margin-left: 16px;
+                flex-grow: 1;
+
+                svg {
+                    display: inline-block;
+                    margin: 0;
+                    margin-right: 4px;
+                }
+
+                p {
+                    display: inline-block;
+                    margin: 0;
+                    color: #21873D;
+                    font-size: 14;
+                    font-style: bold;
+                    font-family: "Manrope", sans-serif;
+                }
             }
         }
     }
 
-
-    .last{
-
-        a{
+    .last a {
+        margin-top: 16px;
         display: block;
         text-align: right;
         color: var.$main-blue;
         font-style: italic;
         font-weight: bold;
-        }
+        text-decoration: none;
     }
-
-    
 }
 

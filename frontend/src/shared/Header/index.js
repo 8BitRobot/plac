@@ -26,7 +26,7 @@ function Header() {
     });
     return (
         <header>
-            <h1>p<span>la</span>c.</h1>
+            <a href="/"> <h1>p<span>la</span>c.</h1></a>
             <div id="header-links">
                 <a href="review">reviews</a>
                 <a id="header-submit" href="submit">submit</a>

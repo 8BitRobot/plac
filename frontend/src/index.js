@@ -17,7 +17,7 @@ ReactDOM.render(
     <Header />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <ReviewPage /> } />
+        <Route path="/" element={ <Homepage /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

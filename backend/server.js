@@ -51,7 +51,7 @@ function getFromDb(item, col, process) {
 }
 
 app.post("/add-review", function (req, res) {
-    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") || (!req.cookies.token || req.cookies.token === "undefined")) {
+    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") || !req.body.hasOwnProperty("name") || (!req.cookies.token || req.cookies.token === "undefined")) {
 	res.send({status: 400});
     }
     else {
@@ -176,8 +176,8 @@ app.get("/get-reputation", function(req, res) {
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
-    if (req.cookies.prototype == null || req.cookies.hasOwnProperty("token") || (req.cookies["token"] === "undefined")) {
-	res.send(JSON.stringify({username: "Guest"}));
+    if (req.cookies.prototype === null || !req.cookies.hasOwnProperty("token") || (req.cookies["token"] === "undefined")) {
+	res.send(JSON.stringify({username: "Guest"}));	
     }
     else {
 	function process(username) {

@@ -57,9 +57,12 @@ function Homepage() {
     }).catch((error) => {
       console.error(error);
     });
-    let response = await request.json()
-    console.log("Success!");
-    console.log(response);
+      let response = await request.json()
+      console.log("Success!");
+      console.log(response.logged);
+      if (response.logged) {
+	  window.location.reload(false);
+      }
   }
   useEffect(() => {
     const url = window.location.href;

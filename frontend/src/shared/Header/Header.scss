@@ -20,39 +20,7 @@ header {
         }
     }
 }
-.searchBar{
-    height: 40px;
-    width: 304px;
-    border-radius: 20px;
-    display: flex;
-    flex-flow: row;
-    background-color:var.$background;
-    box-shadow: var.$box-shadow;
-    margin-top: 20px;
-    margin-right: 40px;
 
-    input{
-        padding-top: 8px;
-        display: inline-block;
-        outline: none;
-        border: none;
-        background-color: transparent;
-        height: 20px;
-        border-radius: 10%;
-        flex-grow: 1;
-        font-family: "Manrope";
-        font-size: 18px;
-        font-weight: 700;
-    }
-    svg{
-        margin-left: 14px;
-        padding-top: 10px;
-        display: inline-block;
-        height: 20px;
-        width: 20px;
-        padding-right:5px;
-    }
-}
 #header-links img{
     display: block;
     float:right;

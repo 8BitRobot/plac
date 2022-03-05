@@ -18,6 +18,8 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={ <Homepage /> } />
+        <Route path="/submit" element={ <Submit /> } />
+        <Route path="/review" element={ <ReviewPage /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

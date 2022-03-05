@@ -7,10 +7,7 @@ import {
 import ReactDOM from "react-dom";
 import "./index.scss";
 import Homepage from "./Homepage";
-<<<<<<< HEAD
 import ReviewPage from "./Reviews";
-=======
->>>>>>> master
 import Submit from "./Submit";
 import Header from "./shared/Header";
 import reportWebVitals from "./reportWebVitals";

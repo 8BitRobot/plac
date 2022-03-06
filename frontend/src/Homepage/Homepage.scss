@@ -13,17 +13,21 @@
       @include var.text-fill(black);
     }
   }
+
   #welcome{
+    margin-top: 30px;
     font-size:30px;
     font-weight:normal;
     font-family:"Montserrat"
-  }
-  b{
-    font-family: "Manrope";
+
+    b {
+      font-family: "Manrope";
+    }
   }
 }
 
 #github-sign-in {
+  margin-top: 30px;
   display: inline-block;
   width: max-content;
   height: 66px;

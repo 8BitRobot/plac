@@ -1,4 +1,4 @@
-const express = require("express");
+express = require("express");
 const cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors");
@@ -79,7 +79,10 @@ app.post("/login", function (req, res) {
   if (req.cookies.token && req.cookies.token != "undefined") {
     console.log(req.cookies.token);
     console.log("Token already exists!");
-    return;
+      res.send({
+	  logged: false,
+      });
+      return;
   } else {
     console.log(req.cookies);
   }
@@ -92,11 +95,20 @@ app.post("/login", function (req, res) {
     },
   }).then((response) => {
     res.cookie("token", response.data.access_token, { maxAge: 3600000 });
-    console.log("set cookie: " + response.data.access_token);
-    res.send({
-      status: 200,
+      console.log("set cookie: " + response.data.access_token);
+      if (response.data.access_token === "undefined" || response.data.access_token === undefined) {
+	  res.send({
+	      logged: false,
+	      status: 200,
+	  });
+      }
+      else {
+	  res.send({
+	      logged: true,
+	      status: 200,
+	  });
+      }
     });
-  });
 });
 
 //return n most related

@@ -1,4 +1,5 @@
 import "./Header.scss";
+import Search from "./Search/";
 import { useEffect, useState } from "react";
 import gray_square from "../../assets/gray_square.png"
 function Header() {

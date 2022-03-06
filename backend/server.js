@@ -209,4 +209,4 @@ app.get("/get-libraries", function(req, res) {
 	res.send(JSON.stringify(matched));
     }
     getFromDb({}, "libraries", process);
-})
+});

@@ -1,9 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Search.scss";
 import React from 'react';
 import Select from 'react-select';
 import { ReactComponent as SearchIcon } from "../../../assets/search.svg";
 
+<<<<<<< HEAD
+=======
+function Search() {
+    const [ allCompletions, setAllCompletions ] = useState([]);
+    const [ currentCompletions, setCurrentCompletions ] = useState([])
+    const [ value, setValue ] = useState("");
+
+    async function fetchAutocomplete() {
+        let request = await fetch("http://localhost:4000/get-libraries", {
+            method: "GET",
+            params: {
+                "characters": ""
+            },
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        }).catch((error) => {
+            console.error(error);
+        });
+        let response = await request.json();
+        console.log(response);
+        setAllCompletions(response.matches);
+    }
+
+    useEffect(() => {
+        fetchAutocomplete();
+    }, []);
+
+    useEffect(() => {
+        console.log(value);
+        setCurrentCompletions(allCompletions.filter((x) => x.includes(value)));
+    }, [value]);
+>>>>>>> cb363fbdb21ef3ae20fbd947b520c32d7d08f3c5
 
 const optins = [
     { label: 'HEY', value: 'YO'},
@@ -59,6 +93,7 @@ function Search() {
     
     return (
         <div className="searchBar">
+<<<<<<< HEAD
             <Select
                 options={optins}
 
@@ -67,6 +102,10 @@ function Search() {
                 openMenuOnClick={false}
 
             />
+=======
+            <SearchIcon />
+            <input type="text" id="input" placeholder="Search" onChange={ (el) => setValue(el.target.value) }></input>
+>>>>>>> cb363fbdb21ef3ae20fbd947b520c32d7d08f3c5
         </div>
     );
 }

@@ -77,8 +77,7 @@ app.get("/get-review", function (req, res) {
 	}
 	res.send(notFlagged);
     }
-    console.log(req.body);
-    getFromDb(req.body, "reviews", process);
+    getFromDb({name : req.query.name}, "reviews", process);
 });
 
 app.post("/login", function (req, res) {

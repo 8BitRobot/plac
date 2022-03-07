@@ -89,9 +89,6 @@ function Search() {
             getLibraries();
         }
     });
-
-function Search() {
-    
     return (
         <div className="searchBar">
 

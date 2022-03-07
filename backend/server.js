@@ -1,4 +1,4 @@
-const express = require("express");
+express = require("express");
 const cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors");
@@ -51,7 +51,7 @@ function getFromDb(item, col, process) {
 }
 
 app.post("/add-review", function (req, res) {
-    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") || !req.body.hasOwnProperty("name") || (!req.cookies.token || req.cookies.token === "undefined")) {
+    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") ||  (!req.cookies.token || req.cookies.token === "undefined")) {
 	res.send({status: 400});
     }
     else {
@@ -79,7 +79,10 @@ app.post("/login", function (req, res) {
   if (req.cookies.token && req.cookies.token != "undefined") {
     console.log(req.cookies.token);
     console.log("Token already exists!");
-    return;
+      res.send({
+	  logged: false,
+      });
+      return;
   } else {
     console.log(req.cookies);
   }
@@ -92,11 +95,20 @@ app.post("/login", function (req, res) {
     },
   }).then((response) => {
     res.cookie("token", response.data.access_token, { maxAge: 3600000 });
-    console.log("set cookie: " + response.data.access_token);
-    res.send({
-      status: 200,
+      console.log("set cookie: " + response.data.access_token);
+      if (response.data.access_token === "undefined" || response.data.access_token === undefined) {
+	  res.send({
+	      logged: false,
+	      status: 200,
+	  });
+      }
+      else {
+	  res.send({
+	      logged: true,
+	      status: 200,
+	  });
+      }
     });
-  });
 });
 
 //return n most related
@@ -134,7 +146,6 @@ app.get("/search-review", function (req, res) {
 });
 
 function getUsername(token, process) {
-    console.log("WAS HERE");
     axios({
 	method: "GET",
 	url: `https://api.github.com/user`,
@@ -176,9 +187,8 @@ app.get("/get-reputation", function(req, res) {
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
-  //console.log(req.cookies);
-    if (req.cookies.prototype === null || !req.cookies.hasOwnProperty("token") || (req.cookies["token"] === "undefined")) {
-	res.send(JSON.stringify({username: "Guest"}));	
+    if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies["token"] === "undefined") {
+	res.send(JSON.stringify({username: "Guest"}));		
     }
     else {
 	function process(username) {

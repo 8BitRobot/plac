@@ -1,7 +1,7 @@
 import "./Header.scss";
 import Search from "./Search/";
 import { useEffect, useState } from "react";
-
+import gray_square from "../../assets/gray_square.png"
 function Header() {
     let [username, setUsername] = useState(undefined);
     async function getUsername(code) {
@@ -27,12 +27,15 @@ function Header() {
     });
     return (
         <header>
-            <h1>p<span>la</span>c.</h1>
+            <a href="/"> <h1>p<span>la</span>c.</h1></a>
             <div id="header-links">
-                <Search />
-                <a>reviews</a>
-                <a id="header-submit">submit</a>
+                <a href="review">reviews</a>
+                <a id="header-submit" href="submit">submit</a>
+               { (username===undefined)?
+                <img id="profile-picture" src={ gray_square }/>
+                :
                 <img id="profile-picture" src={ "https://www.github.com/" + username + ".png" }/>
+            }
             </div>
         </header>
     );

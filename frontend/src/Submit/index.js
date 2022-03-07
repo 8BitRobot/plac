@@ -9,6 +9,10 @@ function Submit() {
     const [projectLink, setLink] = useState("");
 
     async function submitReview() {
+	const params = new URL(window.location.href).searchParams;
+
+	const name = (params.has("name") ? params.get("name") : "");
+
         let request = await fetch("http://localhost:4000/add-review", {
             method: "POST",
             headers: {
@@ -16,17 +20,23 @@ function Submit() {
             },
             credentials: "include",
             body: JSON.stringify({
-                rating: 3,
+                rating: rating,
                 summary: summary,
                 description: description,
                 link: projectLink,
+		name: name,
             }),
         }).catch((error) => {
             console.error(error);
         });
+	
         let response = await request.json();
+
+
         console.log("Success!");
         console.log(response);
+
+	window.location.reload();
     }
     return (
         <div id="submit-page" className="App">

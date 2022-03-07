@@ -6,6 +6,7 @@ const cors = require("cors");
 require("dotenv").config({ path: "./config.env" });
 
 const axios = require("axios");
+const ObjectID = require('mongodb').ObjectID;
 
 const port = process.env.PORT || 4000;
 app.use(
@@ -67,12 +68,16 @@ app.post("/add-review", function (req, res) {
 
 app.get("/get-review", function (req, res) {
     function process(reviews) {
+	let notFlagged = [];
 	for (var review of reviews) {
-	    review["top_contributor"] = true;
+	    if (!review.hasOwnProperty("flagged") || review.flagged < 2) {
+		review["top_contributor"] = true;		
+		notFlagged.push(review);
+	    }
 	}
-	res.send(reviews);
+	res.send(notFlagged);
     }
-    getFromDb(req.body, "reviews", process);
+    getFromDb({name : req.query.name}, "reviews", process);
 });
 
 app.post("/login", function (req, res) {
@@ -145,44 +150,32 @@ app.get("/search-review", function (req, res) {
   res.send(retlist);
 });
 
-function getUsername(token, process) {
-    axios({
-	method: "GET",
-	url: `https://api.github.com/user`,
-	headers: {
-	    Authorization: "token " + token,
-	},
-    }).then((response) => {
-	process(response.data.login);
-    });
-}
 app.get("/get-reputation", function(req, res) {
-    async function process(username) {
-	let response = await axios({
-	    method: "GET",
-	    url: `https://api.github.com/users/${username}/repos`,
-	});
-	    
-	console.log(response);
-	repos = response.data;
-	data = {}
-	for (const repo of repos) {
-	    console.log(repo);
-	    let languages = await axios({
+    if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies.token === "undefined" || req.cookies.token === undefined) {
+	res.send(JSON.stringify({high_reputation: false}));
+    }
+    else {
+	async function process(username) {
+	    let response = await axios({
 		method: "GET",
-		url: `${repo.url}/languages`
+		url: `https://api.github.com/users/${username}/repos`,
 	    });
-	    languages = languages.data;
-	    for (const language in languages) {
-		if (!data.hasOwnProperty(language)) {
-		    data[language] = 0;
-		}
-		data[language] += languages[language];
+
+	    repos = response.data;
+	    
+	    let cnt = 0;
+	    for (var repo of repos) {
+		cnt += repo.stargazers_count + repo.watchers_count;
+	    }
+	    if (cnt >= 2) {
+		res.send(JSON.stringify({high_reputation: true}));
+	    }
+	    else {
+		res.send(JSON.stringify({high_reputation: false}));
 	    }
 	}
-	res.send(data)
+	getUsername(req.cookies.token, process)
     }
-    getUsername(req.cookies.token, process)
 });
 
 //get username from github api token
@@ -200,16 +193,29 @@ app.get("/get-username", function (req, res) {
 
 app.get("/get-libraries", function(req, res) {
     function process(libraries) {
-	if (!req.body.characters) {
-	    req.body.characters = "";
-	}
-	let matched = [];
-	for (var library of libraries) {
-	    if (library["name"].substr(0, req.body.characters.length) === req.body.characters) {
-		matched.push(library["name"]);
-	    }
-	}
-	res.send(JSON.stringify(matched));
+	res.send(JSON.stringify(libraries));
     }
     getFromDb({}, "libraries", process);
+});
+
+app.post("/flag-review", function(req, res) {
+    db.collection("reviews").updateOne({"_id" : ObjectID(req.body._id)}, { $set: { flagged : req.body.flagged+1  }});
+    res.send({status: 200});
+});
+
+app.get("/get-description", function(req, res) {
+    function process(libraries) {
+	if (libraries.length === 0) {
+	    res.send({status: 400});
+	}
+	else {
+	    if (libraries[0].hasOwnProperty("description")) {
+		res.send(JSON.stringify({desc : libraries[0].description}));
+	    }
+	    else {
+		res.send(JSON.stringify({desc : ""}));
+	    }
+	}
+    }
+    getFromDb({name: req.query.name}, "libraries", process);
 });

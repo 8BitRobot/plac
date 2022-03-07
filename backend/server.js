@@ -194,9 +194,6 @@ app.get("/get-username", function (req, res) {
 
 app.get("/get-libraries", function(req, res) {
     function process(libraries) {
-	if (!req.body.characters) {
-	    req.body.characters = "";
-	}
 	let matched = [];
 	for (var library of libraries) {
 	    if (library["name"].substr(0, req.body.characters.length) === req.body.characters) {

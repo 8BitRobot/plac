@@ -129,5 +129,15 @@
         font-weight: bold;
         text-decoration: none;
     }
+
+    .lastRed a {
+	margin-top: 16px;
+        display: block;
+        text-align: right;
+        color: var.$main-red;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: none;
+    }
 }
 

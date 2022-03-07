@@ -14,7 +14,7 @@ function Reviews() {
 	console.log(params.get("name"));
 	
 	let request = await fetch("http://localhost:4000/get-review?name="+(params.has("name") ? params.get("name") : ""), {
-	//let request = await fetch("http://localhost:4000/get-review", {
+//	let request = await fetch("http://localhost:4000/get-review", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +52,10 @@ function Reviews() {
 		      secondText = {d.description}
 		      authorText = {d.username}
 		      topC = {true}
-		      link = {d.link}/>)
+		      link = {d.link}
+		      flagged = {!d.flagged ? 0 : d.flagged}
+		      _id = {d._id}
+		      />)
 	  }) : null}
       </div>
     </div>

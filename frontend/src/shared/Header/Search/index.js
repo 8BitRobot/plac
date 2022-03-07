@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Search.scss";
 import React from 'react';
-import Select, { NonceProvider } from 'react-select';
-import { ReactComponent as SearchIcon } from "../../../assets/search.svg";
-
-const optins = [
-    { label: 'HEY', value: 'hi'},
-    {label: "GREAT", value: "test"},
-];
+import Select from 'react-select';
 
 const customStyles = {
     control: (base,state) => ({
@@ -87,17 +81,17 @@ function Search() {
     if (libraries === null) {
       getLibraries();
     }
-  });
+  }, [libraries]);
 
   return (
     <div className="searchBar">
 	    <form onSubmit={submitSelectCategory}>
         <Select
             value={value}
-                        options={libraries}
-                        styles={customStyles}
-                        placeholder="Search"
-                        openMenuOnClick={false}
+            options={libraries}
+            styles={customStyles}
+            placeholder="Search"
+            openMenuOnClick={false}
             onChange={onDropdownChange}
         />
 	    </form>

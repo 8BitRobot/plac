@@ -39,7 +39,12 @@ function Welcome() {
       <img src={ GithubMark } alt="Github Logo" /> </a>);
     }
   else {
-	  return (<span id="welcome" > Welcome,<b> {username}</b>. </span>);
+	  return (
+      <span id="welcome" > Welcome
+        {(username !== undefined) ? "," : ""}
+        {(username !== undefined) ? <b> {username}</b> : <></>}.
+      </span>
+    );
   }
 }
 

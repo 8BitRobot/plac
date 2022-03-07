@@ -194,13 +194,7 @@ app.get("/get-username", function (req, res) {
 
 app.get("/get-libraries", function(req, res) {
     function process(libraries) {
-	let matched = [];
-	for (var library of libraries) {
-	    if (library["name"].substr(0, req.body.characters.length) === req.body.characters) {
-		matched.push(library["name"]);
-	    }
-	}
-	res.send(JSON.stringify(matched));
+	res.send(JSON.stringify(libraries));
     }
     getFromDb({}, "libraries", process);
 });
@@ -208,4 +202,21 @@ app.get("/get-libraries", function(req, res) {
 app.post("/flag-review", function(req, res) {
     db.collection("reviews").updateOne({"_id" : ObjectID(req.body._id)}, { $set: { flagged : req.body.flagged+1  }});
     res.send({status: 200});
+});
+
+app.get("/get-description", function(req, res) {
+    function process(libraries) {
+	if (libraries.length === 0) {
+	    res.send({status: 400});
+	}
+	else {
+	    if (libraries[0].hasOwnProperty("description")) {
+		res.send(JSON.stringify({desc : libraries[0].description}));
+	    }
+	    else {
+		res.send(JSON.stringify({desc : ""}));
+	    }
+	}
+    }
+    getFromDb({name: req.query.name}, "libraries", process);
 });

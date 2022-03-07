@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import gray_square from "../../assets/gray_square.png"
 function Header() {
     let [username, setUsername] = useState(undefined);
+
+    const params = new URL(window.location.href).searchParams;
+    const name = (params.has("name") ? params.get("name") : "");
+
+
     async function getUsername(code) {
         let request = await fetch("http://localhost:4000/get-username", {
           method: "GET",
@@ -29,8 +34,10 @@ function Header() {
         <header>
             <a href="/"> <h1>p<span>la</span>c.</h1></a>
             <div id="header-links">
-                <a href="review">reviews</a>
-                <a id="header-submit" href="submit">submit</a>
+
+	    <Search/>
+            <a href={"review?name=" + name}>reviews</a>
+            <a id="header-submit" href={"submit?name=" + name}>submit</a>
                { (username===undefined)?
                 <img id="profile-picture" src={ gray_square }/>
                 :

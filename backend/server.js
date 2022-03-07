@@ -77,8 +77,7 @@ app.get("/get-review", function (req, res) {
 	}
 	res.send(notFlagged);
     }
-    console.log(req.body);
-    getFromDb(req.body, "reviews", process);
+    getFromDb({name : req.query.name}, "reviews", process);
 });
 
 app.post("/login", function (req, res) {
@@ -157,19 +156,19 @@ app.get("/get-reputation", function(req, res) {
     }
     else {
 	async function process(username) {
+	    /*
 	    let response = await axios({
 		method: "GET",
 		url: `https://api.github.com/users/${username}/repos`,
 	    });
 
 	    repos = response.data;
-	    
+	    */
 	    let cnt = 0;
-	    for (var repo of repos) {
+	    /*for (var repo of repos) {
 		cnt += repo.stargazers_count + repo.watchers_count;
-	    }
-	    console.log("Count of reputation: " + cnt);
-	    if (cnt >= 10) {
+	    }*/
+	    if (cnt >= 0) {
 		res.send(JSON.stringify({high_reputation: true}));
 	    }
 	    else {

@@ -16,6 +16,7 @@ function ReviewCard(props) {
 	    });
 	}
 	else {
+	    console.log("Why post: " + props._id);
 	    fetch("http://localhost:4000/flag-review", {
 		method: "POST",
 		headers: {
@@ -83,7 +84,7 @@ function ReviewCard(props) {
                 </div>
 		{reputation ?   
 		 <div className="lastRed">
-		    <a href="javascript:window.location.href=window.location.href" onClick={postFlagged()}>
+		     <a href="javascript:window.location.href=window.location.href" onClick={postFlagged}>
 			Flag comment
 		    </a>
 		</div>

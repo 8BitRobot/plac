@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 import "./Reviews.scss";
@@ -6,6 +6,34 @@ import "./Reviews.scss";
 import ReviewCard from "./ReviewCard";
 
 function Reviews() {
+    let [reviews, setReviews] = useState(undefined);
+    async function getReviews() {
+
+	const params = new URL(window.location.href).searchParams;
+
+	console.log(params.get("name"));
+	
+	let request = await fetch("http://localhost:4000/get-review?name="+(params.has("name") ? params.get("name") : ""), {
+//	let request = await fetch("http://localhost:4000/get-review", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }).catch((error) => {
+          console.error(error);
+        });
+	
+        let response = await request.json();
+	console.log(response);
+	setReviews(response);
+    }
+    useEffect(()=>{
+        if (reviews === undefined) {
+            getReviews();
+        }
+    });
+    
   return (
     <div className="Reviews">
       <div id="review-subject">
@@ -15,32 +43,20 @@ function Reviews() {
         <h2>
           A JavaScript object used for matching text with a pattern.
         </h2>
-      </div>
-      <div id="review-cards">
-        <ReviewCard
-          rating={1}
-          titleText={ "RegExp is a menace!" }
-          secondText={"When will the people of Los Angeles be free from the malevolent miscreant we call RegExp? It’s a menace, I say! A menace!"}
-          authorText={"E. Edward Eggertson"}
-          topC={true}
-      link={"https://github.com/8BitRobot/plac"}
-      flagged={3}
-        />
-        <ReviewCard
-          rating={5}
-          titleText={ "It's not delivery, it's DiGiornos." }
-          secondText={"Please replace the DiGiornos part with RegExp, and make sure to delete this part before posting. The money has been transferred to your account. What about a longer string? This review is exceedingly long and therefore very annoying to handle."}
-          authorText={"Javon Scripps"}
-          topC={true}
-          link={"https://github.com/8BitRobot/plac"}
-        />
-        <ReviewCard
-          rating={3}
-          titleText={ "Nice library, bro. Unfortunately,"}
-          secondText={"Don’t care + didn’t ask + L + ratio."}
-          authorText={"David A. Smallberg"}
-          link={"https://github.com/8BitRobot/plac"}
-        />
+	  </div>
+	  <div id="review-cards">
+	  {reviews ? reviews.map(function(d, idx){
+              return (<ReviewCard
+		      rating={d.rating}
+		      titleText={d.summary}
+		      secondText = {d.description}
+		      authorText = {d.username}
+		      topC = {true}
+		      link = {d.link}
+		      flagged = {!d.flagged ? 0 : d.flagged}
+		      _id = {d._id}
+		      />)
+	  }) : null}
       </div>
     </div>
   );

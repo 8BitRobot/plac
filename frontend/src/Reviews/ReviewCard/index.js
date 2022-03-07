@@ -80,16 +80,19 @@ function ReviewCard(props) {
                         }
                     </div>
                 </div>
-                <div className="last">
-                    <a href={props.link}>See his code.</a>
-                </div>
-		{reputation ?   
-		 <div className="lastRed">
-		     <a href="javascript:window.location.href=window.location.href" onClick={postFlagged}>
-			Flag comment
-		    </a>
-		</div>
-		 :<div></div>}
+                {props.link !== "" && props.link !== undefined ?
+                    <div className="last">
+                        <a href={props.link}>See his code.</a>
+                    </div> :
+                    <></>
+                }
+                {reputation ?   
+                    <div className="lastRed">
+                        <a href="javascript:window.location.href=window.location.href" onClick={postFlagged}>
+                            Flag comment.
+                        </a>
+		            </div>
+		        : <></>}
             </div>
         </div>
     );

@@ -20,7 +20,7 @@
 
   h1 {
     display: inline-block;
-    width: 33%;
+    width: max-content;
     font-size: 70px;
     font-family: 'Manrope';
     font-weight: 700;
@@ -41,4 +41,8 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+
+  & > h2 {
+    margin-top: 60px;
+  }
 }

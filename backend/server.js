@@ -156,19 +156,18 @@ app.get("/get-reputation", function(req, res) {
     }
     else {
 	async function process(username) {
-	    /*
 	    let response = await axios({
 		method: "GET",
 		url: `https://api.github.com/users/${username}/repos`,
 	    });
 
 	    repos = response.data;
-	    */
+	    
 	    let cnt = 0;
-	    /*for (var repo of repos) {
+	    for (var repo of repos) {
 		cnt += repo.stargazers_count + repo.watchers_count;
-	    }*/
-	    if (cnt >= 0) {
+	    }
+	    if (cnt >= 2) {
 		res.send(JSON.stringify({high_reputation: true}));
 	    }
 	    else {

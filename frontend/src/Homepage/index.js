@@ -1,13 +1,47 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import GithubMark from "../assets/github_logo.png";
-
+import Cookies from "js-cookie";
 import "./Homepage.scss";
 
 import AdCard from "./AdCard";
 
 let client_id = "66e07c977ca0164c8fa6";
 let scopes = "read:user read:org repo"
+
+function Welcome() {
+    let [username, setUsername] = useState(undefined);
+    async function getUsername(code) {
+	let request = await fetch("http://localhost:4000/get-username", {
+            method: "GET",
+            headers: {
+		"Content-Type": "application/json",
+            },
+            credentials: "include",
+	}).catch((error) => {
+            console.error(error);
+	});
+	let response = await request.json()
+	console.log("Success!");
+	console.log(response);
+	console.log(response.username);
+	setUsername(response.username);
+    }
+    useEffect(()=>{
+	if (username === undefined) {
+            getUsername();
+	}
+    });
+
+    if (Cookies.get("token") === undefined || Cookies.get("token") === "undefined") {
+	return ( <a id="github-sign-in" href={ `https://github.com/login/oauth/authorize?scope=${scopes}&client_id=${client_id}` }>
+		 <span>Sign in with GitHub</span>
+		 <img src={ GithubMark } alt="Github Logo" /> </a>);
+    }
+    else {
+	return (<span id="welcome" > Welcome,<b> {username}</b>. </span>)
+    }
+}
 
 function Homepage() {
   async function login(code) {
@@ -23,9 +57,12 @@ function Homepage() {
     }).catch((error) => {
       console.error(error);
     });
-    let response = await request.json()
-    console.log("Success!");
-    console.log(response);
+      let response = await request.json()
+      console.log("Success!");
+      console.log(response.logged);
+      if (response.logged) {
+	  window.location.reload(false);
+      }
   }
   useEffect(() => {
     const url = window.location.href;
@@ -36,15 +73,13 @@ function Homepage() {
     }
   });
     
-  return (
-    <div className="App">
-      <div id="headlines">
-        <h1>Find the <span>right tool</span> for the job.</h1>
-        <a id="github-sign-in" href={ `https://github.com/login/oauth/authorize?scope=${scopes}&client_id=${client_id}` }>
-          <span>Sign in with GitHub</span>
-          <img src={ GithubMark } alt="Github Logo" />
-        </a>
-      </div>
+    return (
+	    <div className="App">
+	  
+	 <div id="headlines">
+            <h1>Find the <span>right tool</span> for the job.</h1>
+	    <Welcome />
+        </div>
       <div id="ad-cards">
         <AdCard
           titleText={ <><span>Expertise</span>, never easier.</> }

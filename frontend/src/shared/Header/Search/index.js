@@ -3,11 +3,11 @@ import "./Search.scss";
 import React from 'react';
 import Select from 'react-select';
 import { ReactComponent as SearchIcon } from "../../../assets/search.svg";
-
+import { setState } from 'react';
 
 const optins = [
-    { label: 'HEY', value: 'YO'},
-    {label: "GREAT", value: "LM"},
+    { label: 'HEY', value: 'hi'},
+    {label: "GREAT", value: "test"},
 ];
 
 const customStyles = {
@@ -16,7 +16,7 @@ const customStyles = {
       height: 40,
       width: 304,
       borderRadius: 20,
-      fontFamily: 'Manrope',
+      fontFamily: 'Monteserrat',
       fontSize: 18,
       border:'none',
       fontStyle: 'bold',
@@ -56,17 +56,55 @@ const customStyles = {
   }
 
 function Search() {
+    const [value, setValue] = useState(null);
+    const [libraries, setLibraries] = useState(null);
+    const onDropdownChange = (value) => {
+	setValue(value);
+    };
+    const submitSelectCategory = (e) => {
+	e.preventDefault();
+	window.location = 'http://localhost:3000/review?name=' + value.value;
+    };
+    async function getLibraries() {
+	let request = await fetch("http://localhost:4000/get-libraries", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }).catch((error) => {
+          console.error(error);
+        });
+        let response = await request.json()
+	
+	let searching = [];
+
+	for (var resp of response) {
+	    searching.push({label: resp.name, value: resp.name});
+	}
+	setLibraries(searching);
+    };
+    useEffect(()=>{
+        if (libraries === null) {
+            getLibraries();
+        }
+    });
+
+function Search() {
     
     return (
         <div className="searchBar">
-            <Select
-                options={optins}
 
-                styles={customStyles}
-                placeholder="Search"
-                openMenuOnClick={false}
-
-            />
+	    <form onSubmit={submitSelectCategory}>
+		<Select
+		    value={value}
+                    options={libraries}
+                    styles={customStyles}
+                    placeholder="Search"
+                    openMenuOnClick={false}
+		    onChange={onDropdownChange}
+		/>
+	    </form>
         </div>
     );
 }

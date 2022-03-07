@@ -7,15 +7,27 @@
 
   h1 {
     font-size: 64px;
-    margin: 110px 0 80px;
+    margin: 110px 0 10px 0;
     
     span {
       @include var.text-fill(black);
     }
   }
+
+  #welcome{
+    margin-top: 30px;
+    font-size:30px;
+    font-weight:normal;
+    font-family:"Montserrat"
+
+    b {
+      font-family: "Manrope";
+    }
+  }
 }
 
 #github-sign-in {
+  margin-top: 30px;
   display: inline-block;
   width: max-content;
   height: 66px;

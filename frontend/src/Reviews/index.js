@@ -23,8 +23,8 @@ function Reviews() {
           secondText={"When will the people of Los Angeles be free from the malevolent miscreant we call RegExp? It’s a menace, I say! A menace!"}
           authorText={"E. Edward Eggertson"}
           topC={true}
-          link={"https://github.com/8BitRobot/plac"}
-
+      link={"https://github.com/8BitRobot/plac"}
+      flagged={3}
         />
         <ReviewCard
           rating={5}

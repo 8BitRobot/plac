@@ -34,15 +34,14 @@ function Header() {
         <header>
             <a href="/"> <h1>p<span>la</span>c.</h1></a>
             <div id="header-links">
-
-	    <Search/>
-            <a href={"review?name=" + name}>reviews</a>
-            <a id="header-submit" href={"submit?name=" + name}>submit</a>
-               { (username===undefined)?
-                <img id="profile-picture" src={ gray_square }/>
-                :
-                <img id="profile-picture" src={ "https://www.github.com/" + username + ".png" }/>
-            }
+                <Search />
+                <a href={"review?name=" + name}>reviews</a>
+                <a id="header-submit" href={"submit?name=" + name}>submit</a>
+                { (username === undefined) ?
+                    <img id="profile-picture" src={ gray_square }/>
+                    :
+                    <img id="profile-picture" src={ "https://www.github.com/" + username + ".png" }/>
+                }
             </div>
         </header>
     );

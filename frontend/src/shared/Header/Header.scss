@@ -1,0 +1,59 @@
+@use "../../_var.scss" as var;
+
+header {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    height: 120px;
+    width: 100vw;
+    box-shadow: var.$box-shadow;
+    padding: 21px 40px 21px;
+    box-sizing: border-box;
+
+    h1 {
+        display: inline-block;
+        font-size: 60px;
+        margin-top: -6px;
+    
+        span {
+            color: var.$main-blue;
+        }
+    }
+}
+
+#header-links img{
+    display: block;
+    float:right;
+    max-height:100%;
+}
+#header-links a {
+    display: inline-block;
+    font-size: 30px;
+    line-height: 78px;
+    padding-right: 40px;
+}
+
+#header-links {
+    display: flex;
+    justify-content: flex-end;
+    justify-content: end;
+    
+    img{
+        display: inline-block;
+        height: 100%;
+    }
+
+    a {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 30px;
+        line-height: 78px;
+        padding-right: 40px;
+        text-decoration: none;
+    }
+
+    #header-submit {
+        color: var.$main-green;
+        margin-right: 0;
+    }
+}

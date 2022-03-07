@@ -1,0 +1,60 @@
+@use "../_var.scss" as var;
+
+#headlines {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  h1 {
+    font-size: 64px;
+    margin: 110px 0 10px 0;
+    
+    span {
+      @include var.text-fill(black);
+    }
+  }
+
+  #welcome{
+    margin-top: 30px;
+    font-size:30px;
+    font-weight:normal;
+    font-family:"Montserrat"
+
+    b {
+      font-family: "Manrope";
+    }
+  }
+}
+
+#github-sign-in {
+  margin-top: 30px;
+  display: inline-block;
+  width: max-content;
+  height: 66px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  background-color: black;
+  text-decoration: none;
+  border-radius: var.$bradius;
+
+  span {
+    display: inline-block;
+    color: var.$background;
+    font-family: "Montserrat", sans-serif;
+    font-size: 22px;
+    line-height: 42px;
+    margin-right: 20px;
+    vertical-align: top;
+  }
+
+  img {
+    height: 42px;
+  }
+}
+
+#ad-cards {
+  margin-top: 88px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}

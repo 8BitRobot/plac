@@ -1,0 +1,40 @@
+$main-blue: #057ace;
+$main-green: #21873d;
+$main-red: #ff3333;
+$background: #eeeeee;
+$text-primary: #000000;
+$text-gray: #666666;
+
+$box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+$box-shadow-focus: 1px 1px 8px #057ace40;
+$bradius: 12px;
+
+@keyframes tf {
+    0% {
+        background-position: 100%;
+    }
+
+    33% {
+        background-position: 100%;
+    }
+
+    to {
+        background-position: 0% 100%;
+    }
+}
+
+@mixin text-fill ($color) {
+    color: $main-blue;
+    background: linear-gradient(to right, $main-blue, $main-blue 50%, black 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+
+    animation-name: tf;
+    animation-duration: 2.5s;
+    animation-timing-function: ease;
+    // animation-direction: reverse;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+}

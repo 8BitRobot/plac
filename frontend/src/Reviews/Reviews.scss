@@ -1,0 +1,36 @@
+@use "../_var.scss" as var;
+
+.Reviews {
+  padding: 55px;
+}
+
+#review-subject {
+  margin-bottom: 93px;
+
+  h1, h2 {
+    margin: 0;
+  }
+
+  h1 {
+    display: inline-block;
+    width: 25%;
+    font-size: 70px;
+    font-family: 'Manrope';
+    font-weight: 700;
+    color: #000000;
+  }
+
+  h2 {
+    display: inline-block;
+    font-size: 30px;
+    font-family: "Montserrat";
+    color: #000000;
+    font-weight: 500;
+  }
+}
+
+#review-cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}

@@ -90,8 +90,11 @@ function Search() {
         }
     });
 
+function Search() {
+    
     return (
         <div className="searchBar">
+
 	    <form onSubmit={submitSelectCategory}>
 		<Select
 		    value={value}

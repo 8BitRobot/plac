@@ -6,8 +6,8 @@ import { ReactComponent as SearchIcon } from "../../../assets/search.svg";
 import { setState } from 'react';
 
 const optins = [
-    { label: 'HEY', value: 'Test2'},
-    {label: "GREAT", value: "Test1"},
+    { label: 'HEY', value: 'hi'},
+    {label: "GREAT", value: "test"},
 ];
 
 const customStyles = {
@@ -16,7 +16,7 @@ const customStyles = {
       height: 40,
       width: 304,
       borderRadius: 20,
-      fontFamily: 'Manrope',
+      fontFamily: 'Monteserrat',
       fontSize: 18,
       border:'none',
       fontStyle: 'bold',

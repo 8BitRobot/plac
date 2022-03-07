@@ -7,14 +7,17 @@ import ReviewCard from "./ReviewCard";
 
 function Reviews() {
     let [reviews, setReviews] = useState(undefined);
+    let [name, setName] = useState(undefined);
+    let [description, setDescription] = useState(undefined);
     async function getReviews() {
 
 	const params = new URL(window.location.href).searchParams;
 
 	console.log(params.get("name"));
+
+	setName(params.get("name"));
 	
-	let request = await fetch("http://localhost:4000/get-review?name="+(params.has("name") ? params.get("name") : ""), {
-//	let request = await fetch("http://localhost:4000/get-review", {
+	let request = await fetch("http://localhost:4000/get-description?name="+(params.has("name") ? params.get("name") : ""), {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -24,9 +27,27 @@ function Reviews() {
           console.error(error);
         });
 	
-        let response = await request.json();
-	console.log(response);
+	let response = await request.json();
+	
+	setDescription(response.desc);
+	
+	request = await fetch("http://localhost:4000/get-review?name="+(params.has("name") ? params.get("name") : ""), {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }).catch((error) => {
+          console.error(error);
+        });
+	
+        response = await request.json();
+	
 	setReviews(response);
+
+
+
+	
     }
     useEffect(()=>{
         if (reviews === undefined) {
@@ -38,10 +59,10 @@ function Reviews() {
     <div className="Reviews">
       <div id="review-subject">
         <h1>
-          RegExp
+          {name}
         </h1>
-        <h2>
-          A JavaScript object used for matching text with a pattern.
+          <h2>
+	  {description}
         </h2>
 	  </div>
 	  <div id="review-cards">

@@ -36,7 +36,7 @@ function Header() {
             <div id="header-links">
 
 	    <Search/>
-                <a href="review">reviews</a>
+            <a href={"review?name=" + name}>reviews</a>
             <a id="header-submit" href={"submit?name=" + name}>submit</a>
                { (username===undefined)?
                 <img id="profile-picture" src={ gray_square }/>

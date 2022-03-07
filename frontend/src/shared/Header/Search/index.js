@@ -57,6 +57,7 @@ const customStyles = {
 
 function Search() {
     const [value, setValue] = useState(null);
+    const [libraries, setLibraries] = useState(null);
     const onDropdownChange = (value) => {
 	setValue(value);
     };
@@ -64,12 +65,37 @@ function Search() {
 	e.preventDefault();
 	window.location = 'http://localhost:3000/review?name=' + value.value;
     };
+    async function getLibraries() {
+	let request = await fetch("http://localhost:4000/get-libraries", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }).catch((error) => {
+          console.error(error);
+        });
+        let response = await request.json()
+	
+	let searching = [];
+
+	for (var resp of response) {
+	    searching.push({label: resp.name, value: resp.name});
+	}
+	setLibraries(searching);
+    };
+    useEffect(()=>{
+        if (libraries === null) {
+            getLibraries();
+        }
+    });
+
     return (
         <div className="searchBar">
 	    <form onSubmit={submitSelectCategory}>
 		<Select
 		    value={value}
-                    options={optins}
+                    options={libraries}
                     styles={customStyles}
                     placeholder="Search"
                     openMenuOnClick={false}

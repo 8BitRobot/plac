@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Search.scss";
 import React from 'react';
-import Select from 'react-select';
+import Select, { NonceProvider } from 'react-select';
 import { ReactComponent as SearchIcon } from "../../../assets/search.svg";
 
 const optins = [
@@ -15,7 +15,7 @@ const customStyles = {
       height: 40,
       width: 304,
       borderRadius: 20,
-      fontFamily: 'Monteserrat',
+      fontFamily: 'Montserrat',
       fontSize: 18,
       border:'none',
       fontStyle: 'bold',
@@ -30,7 +30,7 @@ const customStyles = {
         height: 40,
         cursor: 'pointer',
         backgroundColor: isFocused ? '#DDDDDD' : 'white',
-        
+        borderRadius: 20,
       }
     },
     indicatorContainer: styles =>({
@@ -39,12 +39,13 @@ const customStyles = {
     input: styles => ({
       ...styles,
       color: 'black',
-      fontFamily: 'Times New Roman, Times, Serif',
+      fontFamily: 'Montserrat, sans-serif',
     }),
   
     menu: styles => ({
       ...styles,
       position: 'absolute',
+      top: '36px',
       boxShadow: 'none',
     }),
   

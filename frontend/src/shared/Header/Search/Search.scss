@@ -24,4 +24,13 @@
         font-size: 18px;
         font-weight: 700;
     }
+
+    *::-webkit-scrollbar {
+        display: none;
+    }
+
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 }

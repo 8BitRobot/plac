@@ -35,8 +35,8 @@ Create a file `backend/githubsso.json` and put your github `clientID` and `clien
 An example is 
 ```
 {
-"clientId" : "[this is the clientID]"
-"clientSecret: "[this is the clientSecret]"
+"clientId" : "[this is the clientID]",
+"clientSecret: "[this is the clientSecret]",
 "apiToken" : "[this is the apiToken]"
 }
 ```

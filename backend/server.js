@@ -67,11 +67,23 @@ app.post("/add-review", function (req, res) {
 });
 
 app.get("/get-review", function (req, res) {
-    function process(reviews) {
+    async function process(reviews) {
 	let notFlagged = [];
 	for (var review of reviews) {
 	    if (!review.hasOwnProperty("flagged") || review.flagged < 2) {
-		review["top_contributor"] = true;		
+		let response = await axios({
+		    method: "GET",
+		    url: `https://api.github.com/users/${review.username}/repos`,
+		});
+		repos = response.data;
+		let cnt = 0;
+		
+		for (var repo of repos) {
+		    cnt += repo.stargazers_count + repo.watchers_count;
+		}
+		console.log(cnt);
+		review["top_contributor"] = (cnt >= 10);
+		console.log(review["top_contributor"]);
 		notFlagged.push(review);
 	    }
 	}
@@ -165,7 +177,7 @@ app.get("/get-reputation", function(req, res) {
         for (var repo of repos) {
           cnt += repo.stargazers_count + repo.watchers_count;
         }
-        if (cnt >= 2) {
+        if (cnt >= 10) {
           res.send(JSON.stringify({high_reputation: true}));
         }
         else {

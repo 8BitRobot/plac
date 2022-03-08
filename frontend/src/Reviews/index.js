@@ -61,7 +61,7 @@ function Reviews() {
                 titleText={d.summary}
                 secondText = {d.description}
                 authorText = {d.username}
-                topC = {true}
+                topC = {d.top_contributor}
                 link = {d.link}
                 flagged = {!d.flagged ? 0 : d.flagged}
                 _id = {d._id}

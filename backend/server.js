@@ -208,8 +208,14 @@ app.get("/language-data", function (req, res) {
     console.log(data);
     let langs = Object.entries(data);
     let sum = 0;
-    for (let lang of langs.slice(1)) {
-      sum += lang[1];
+    if (langs.length === 0) {
+      res.send({success: false});
+    } else if (langs.length === 1) {
+      sum = langs[0][1];
+    } else {
+      for (let lang of langs.slice(1)) {
+        sum += lang[1];
+      }
     }
     res.send({
       success: true,

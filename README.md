@@ -17,10 +17,29 @@ To start the project, first clone the github repository using the command:
 
 #### cd plac
 
-## To start the Frontend (React):
+## To Start the Frontend (React):
 
 #### cd frontend
 
 #### npm install
 
 #### npm start
+
+## To Start the Backend (Node and MongoDB):
+
+#### cd backend
+
+#### npm install
+
+#### npm start
+
+## Run Backend Shell Scripts:
+
+1. Populate the database with a list of programming languages:
+#### ./dblanguages.sh
+
+2. Populate the database with a list of reviews for the existing languages:
+#### ./dbpopulate.sh
+
+3. If you want to clear all of the populated reviews and languages that were loaded:
+#### ./dbclear.sh

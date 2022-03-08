@@ -36,7 +36,7 @@
     & > * {
         margin: 0;
         display: inline-block;
-        height: 71px;
+        min-height: 71px;
 
         &:last-child {
             flex-grow: 1;
@@ -87,12 +87,13 @@
             justify-content: space-between;
 
             .authorInfo{
-                p {
+                p, a {
                     margin: 0;
                     font-family: "Manrope", sans-serif;
                     font-size: 20;
                     color: #000000;
                     font-style: bold;
+                    text-decoration: none;
                 }
 
             }
@@ -120,18 +121,24 @@
         }
     }
 
-    .last a {
-        margin-top: 16px;
-        display: block;
-        text-align: right;
-        color: var.$main-blue;
-        font-style: italic;
-        font-weight: bold;
-        text-decoration: none;
+    .last {
+        display: flex;
+        justify-content: end;
+        justify-content: flex-end;
+
+        a {
+            margin-top: 16px;
+            display: inline-block;
+            text-align: right;
+            color: var.$main-blue;
+            font-style: italic;
+            font-weight: bold;
+            text-decoration: none;
+        }
     }
 
     .lastRed a {
-	margin-top: 16px;
+	    margin-top: 16px;
         display: block;
         text-align: right;
         color: var.$main-red;
@@ -141,3 +148,68 @@
     }
 }
 
+.repo-insights {
+    h2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 32px;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: normal;
+        font-size: 24px;
+        color: var.$main-blue;
+    }
+}
+
+.popup-arrow {
+    color: var.$background;
+}
+
+.popup-content {
+    min-height: 100px;
+    width: 300px;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: var.$background;
+    box-shadow: var.$box-shadow;
+    border-radius: var.$bradius;
+}
+
+.language-graph-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: stretch;
+    align-items: center;
+
+    h4 {
+        margin: 0;
+        height: 30px;
+        line-height: 30px;
+        display: inline-block;
+        width: 36%;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    & > div {
+        flex-grow: 1;
+        display: inline-flex;
+        align-items: center;
+        height: 30px;
+
+        div {
+            height: 4px;
+            border-radius: 2px;
+            background-color: var.$main-blue;
+        }
+        
+        &:first-child div {
+            background-color: var.$main-green;
+        }
+    }
+}

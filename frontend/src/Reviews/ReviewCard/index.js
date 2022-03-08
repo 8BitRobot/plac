@@ -1,6 +1,7 @@
 import Rating from "../../shared/Rating/"
 import "./ReviewCard.scss";
 import { useEffect, useState } from "react";
+import { Popup } from "reactjs-popup";
 import { ReactComponent as Medal } from "../../assets/medal.svg";
     
 function ReviewCard(props) {
@@ -29,6 +30,8 @@ function ReviewCard(props) {
     }
     
     const [reputation, setReputation] = useState(undefined);
+    const [languageData, setLanguageData] = useState(undefined);
+
     async function getReputation() {
         let request = await fetch("http://localhost:4000/get-reputation", {
             method: "GET",
@@ -43,9 +46,26 @@ function ReviewCard(props) {
         console.log(response);
         setReputation(response.high_reputation);
     }
+    async function getLanguageData() {
+        if (props.link !== undefined && props.link.includes("github.com")) {
+            let request = await fetch(`http://localhost:4000/language-data?link=${props.link}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            }).catch((error) => {
+                console.error(error);
+            });
+            let response = await request.json();
+            console.log(response);
+            setLanguageData(response);
+        }
+    }
     
     useEffect(()=>{
         getReputation();
+        getLanguageData();
     }, []);
 
     return (
@@ -69,7 +89,9 @@ function ReviewCard(props) {
                     <p>written by</p>
                     <div className="secondT">
                         <div className="authorInfo">
-                            <p>{props.authorText}</p> 
+                            <p>
+                                <a href={`https://github.com/${props.authorText}`}>{props.authorText}</a>
+                            </p> 
                         </div>
                         {
                             (props.topC) ?
@@ -80,16 +102,52 @@ function ReviewCard(props) {
                         }
                     </div>
                 </div>
-                <div className="last">
-                    <a href={props.link}>See his code.</a>
-                </div>
-		{reputation ?   
-		 <div className="lastRed">
-		     <a href="javascript:window.location.href=window.location.href" onClick={postFlagged}>
-			Flag comment
-		    </a>
-		</div>
-		 :<div></div>}
+                {props.link !== "" && props.link !== undefined ?
+                    <div className="last">
+                        <Popup
+                            trigger={open => (<a href={props.link}>See the code.</a>)}
+                            on={["hover"]}
+                            position="top center"
+                            closeOnDocumentClick
+                        >
+                            <div className="repo-insights">
+                                { languageData && languageData.success ?
+                                    (<>
+                                        <h2>{ languageData.repoId }</h2>
+                                        <h3>Language insights</h3>
+                                        <div className="language-graph">
+                                            { 
+                                                languageData.langs.map(function(v, index) {
+                                                    return (
+                                                        <div className="language-graph-row" key={index}>
+                                                            <h4>{v[0]}</h4>
+                                                            <div>
+                                                                <div style={{
+                                                                    width: `${v[1] / languageData.sum * 100}%`,
+                                                                }}></div>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })
+                                            }
+                                        </div>
+                                    </>) :
+                                    <>
+                                        That repository was not found. Either it doesn't exist on GitHub or the owner made it private.
+                                    </>
+                                }
+                            </div>
+                        </Popup>
+                    </div> :
+                    <></>
+                }
+                {reputation ?   
+                    <div className="lastRed">
+                        <a href="javascript:window.location.href=window.location.href" onClick={postFlagged}>
+                            Flag comment.
+                        </a>
+		            </div>
+		        : <></>}
             </div>
         </div>
     );

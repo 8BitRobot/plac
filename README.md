@@ -17,6 +17,12 @@ To start the project, first clone the github repository using the command:
 
 #### cd plac
 
+## Install Dependencies:
+
+#### Install Node from https://nodejs.org/en/download/
+
+#### Install MongoDB from https://docs.mongodb.com/manual/installation/#:~:text=MongoDB%20Installation%20Tutorials%20¶%20%20%20%20Platform,%20%20Install%20MongoDB%20Enterprise%20with%20Docker%20
+
 ## To Start the Frontend (React):
 
 #### cd frontend
@@ -35,11 +41,9 @@ To start the project, first clone the github repository using the command:
 
 ## Run Backend Shell Scripts:
 
-1. Populate the database with a list of programming languages:
 #### ./dblanguages.sh
+1. Populate the database with a list of programming languages: ./dblanguages.sh
 
-2. Populate the database with a list of reviews for the existing languages:
-#### ./dbpopulate.sh
+2. Populate the database with a list of reviews for the existing languages: ./dbpopulate.sh
 
-3. If you want to clear all of the populated reviews and languages that were loaded:
-#### ./dbclear.sh
+3. If you want to clear all of the populated reviews and languages that were loaded: ./dbclear.sh

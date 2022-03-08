@@ -2,13 +2,6 @@ import { useEffect, useState } from "react";
 import "./Search.scss";
 import React from 'react';
 import Select from 'react-select';
-import { ReactComponent as SearchIcon } from "../../../assets/search.svg";
-import { setState } from 'react';
-
-const optins = [
-    { label: 'HEY', value: 'hi'},
-    {label: "GREAT", value: "test"},
-];
 
 const customStyles = {
     control: (base,state) => ({
@@ -16,7 +9,7 @@ const customStyles = {
       height: 40,
       width: 304,
       borderRadius: 20,
-      fontFamily: 'Monteserrat',
+      fontFamily: 'Montserrat',
       fontSize: 18,
       border:'none',
       fontStyle: 'bold',
@@ -31,7 +24,7 @@ const customStyles = {
         height: 40,
         cursor: 'pointer',
         backgroundColor: isFocused ? '#DDDDDD' : 'white',
-        
+        borderRadius: 20,
       }
     },
     indicatorContainer: styles =>({
@@ -40,70 +33,70 @@ const customStyles = {
     input: styles => ({
       ...styles,
       color: 'black',
-      fontFamily: 'Times New Roman, Times, Serif',
+      fontFamily: 'Montserrat, sans-serif',
     }),
   
     menu: styles => ({
       ...styles,
       position: 'absolute',
+      top: '36px',
       boxShadow: 'none',
     }),
   
     singleValue: styles => ({
-      ...styles,
-      
-    }),
-  }
+    ...styles,
+  }),
+}
 
 function Search() {
-    const [value, setValue] = useState(null);
-    const [libraries, setLibraries] = useState(null);
-    const onDropdownChange = (value) => {
-	setValue(value);
-    };
-    const submitSelectCategory = (e) => {
-	e.preventDefault();
-	window.location = 'http://localhost:3000/review?name=' + value.value;
-    };
-    async function getLibraries() {
-	let request = await fetch("http://localhost:4000/get-libraries", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }).catch((error) => {
-          console.error(error);
-        });
-        let response = await request.json()
-	
-	let searching = [];
-
-	for (var resp of response) {
-	    searching.push({label: resp.name, value: resp.name});
-	}
-	setLibraries(searching);
-    };
-    useEffect(()=>{
-        if (libraries === null) {
-            getLibraries();
-        }
+  const [value, setValue] = useState(null);
+  const [libraries, setLibraries] = useState(null);
+  const onDropdownChange = (value) => {
+    setValue(value);
+  };
+  const submitSelectCategory = (e) => {
+    e.preventDefault();
+    window.location = 'http://localhost:3000/review?name=' + value.value;
+  };
+  async function getLibraries() {
+    let request = await fetch("http://localhost:4000/get-libraries", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).catch((error) => {
+      console.error(error);
     });
-    return (
-        <div className="searchBar">
+    let response = await request.json()
+    
+    let searching = [];
 
+    for (var resp of response) {
+        searching.push({label: resp.name, value: resp.name});
+    }
+    setLibraries(searching);
+  };
+  useEffect(()=>{
+    if (libraries === null) {
+      getLibraries();
+    }
+  }, [libraries]);
+
+  return (
+    <div className="searchBar">
 	    <form onSubmit={submitSelectCategory}>
-		<Select
-		    value={value}
-                    options={libraries}
-                    styles={customStyles}
-                    placeholder="Search"
-                    openMenuOnClick={false}
-		    onChange={onDropdownChange}
-		/>
+        <Select
+            value={value}
+            options={libraries}
+            styles={customStyles}
+            placeholder="Search"
+            openMenuOnClick={false}
+            onChange={onDropdownChange}
+        />
 	    </form>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Search;

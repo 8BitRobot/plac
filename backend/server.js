@@ -152,70 +152,94 @@ app.get("/search-review", function (req, res) {
 
 app.get("/get-reputation", function(req, res) {
     if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies.token === "undefined" || req.cookies.token === undefined) {
-	res.send(JSON.stringify({high_reputation: false}));
+	    res.send(JSON.stringify({high_reputation: false}));
     }
     else {
-	async function process(username) {
-	    let response = await axios({
-		method: "GET",
-		url: `https://api.github.com/users/${username}/repos`,
-	    });
-
-	    repos = response.data;
-	    
-	    let cnt = 0;
-	    for (var repo of repos) {
-		cnt += repo.stargazers_count + repo.watchers_count;
-	    }
-	    if (cnt >= 2) {
-		res.send(JSON.stringify({high_reputation: true}));
-	    }
-	    else {
-		res.send(JSON.stringify({high_reputation: false}));
-	    }
-	}
-	getUsername(req.cookies.token, process)
+      async function process(username) {
+        let response = await axios({
+          method: "GET",
+          url: `https://api.github.com/users/${username}/repos`,
+        });
+        repos = response.data;
+        let cnt = 0;
+        for (var repo of repos) {
+          cnt += repo.stargazers_count + repo.watchers_count;
+        }
+        if (cnt >= 2) {
+          res.send(JSON.stringify({high_reputation: true}));
+        }
+        else {
+          res.send(JSON.stringify({high_reputation: false}));
+        }
+      }
+      getUsername(req.cookies.token, process)
     }
+  // async function process(username) {
+  //   let response = await axios({
+  //       method: "GET",
+  //       url: `https://api.github.com/users/${username}/repos`,
+  //   });
+        
+  //   console.log(response);
+  //   repos = response.data;
+  //   data = {}
+  //   for (const repo of repos) {
+  //     console.log(repo);
+  //     let languages = await axios({
+  //       method: "GET",
+  //       url: `${repo.url}/languages`
+  //     });
+  //     languages = languages.data;
+  //     for (const language in languages) {
+  //       if (!data.hasOwnProperty(language)) {
+  //         data[language] = 0;
+  //       }
+  //       data[language] += languages[language];
+  //     }
+  //   }
+  //   res.send(data)
+  // }
+  // getUsername(req.cookies.token, process)
 });
 
 //get username from github api token
 app.get("/get-username", function (req, res) {
-    if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies["token"] === "undefined") {
-	res.send(JSON.stringify({username: "Guest"}));		
+  if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies["token"] === "undefined") {
+	  res.send(JSON.stringify({username: "Guest"}));		
+  }
+  else {
+    function process(username) {
+        res.send(JSON.stringify({username: username}));
     }
-    else {
-	function process(username) {
-	    res.send(JSON.stringify({username: username}));
-	}
-	getUsername(req.cookies.token, process);
-    }
+    getUsername(req.cookies.token, process);
+  }
 });
 
 app.get("/get-libraries", function(req, res) {
-    function process(libraries) {
-	res.send(JSON.stringify(libraries));
-    }
-    getFromDb({}, "libraries", process);
+  function process(libraries) {
+	  res.send(JSON.stringify(libraries));
+  }
+  getFromDb({}, "libraries", process);
 });
 
 app.post("/flag-review", function(req, res) {
-    db.collection("reviews").updateOne({"_id" : ObjectID(req.body._id)}, { $set: { flagged : req.body.flagged+1  }});
-    res.send({status: 200});
+  db.collection("reviews").updateOne({"_id" : ObjectID(req.body._id)}, { $set: { flagged : req.body.flagged+1  }});
+  res.send({status: 200});
 });
 
 app.get("/get-description", function(req, res) {
-    function process(libraries) {
-	if (libraries.length === 0) {
-	    res.send({status: 400});
-	}
-	else {
-	    if (libraries[0].hasOwnProperty("description")) {
-		res.send(JSON.stringify({desc : libraries[0].description}));
-	    }
-	    else {
-		res.send(JSON.stringify({desc : ""}));
-	    }
-	}
+  function process(libraries) {
+    if (libraries.length === 0) {
+      res.send({status: 400});
     }
-    getFromDb({name: req.query.name}, "libraries", process);
+    else {
+      if (libraries[0].hasOwnProperty("description")) {
+        res.send(JSON.stringify({desc : libraries[0].description}));
+      }
+      else {
+        res.send(JSON.stringify({desc : ""}));
+      }
+    }
+  }
+  getFromDb({name: req.query.name}, "libraries", process);
 });

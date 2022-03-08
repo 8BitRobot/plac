@@ -87,12 +87,13 @@
             justify-content: space-between;
 
             .authorInfo{
-                p {
+                p, a {
                     margin: 0;
                     font-family: "Manrope", sans-serif;
                     font-size: 20;
                     color: #000000;
                     font-style: bold;
+                    text-decoration: none;
                 }
 
             }
@@ -149,6 +150,8 @@
 
 .repo-insights {
     h2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 32px;
         margin-top: 0;
         margin-bottom: 8px;

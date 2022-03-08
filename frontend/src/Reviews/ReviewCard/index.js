@@ -89,7 +89,9 @@ function ReviewCard(props) {
                     <p>written by</p>
                     <div className="secondT">
                         <div className="authorInfo">
-                            <p>{props.authorText}</p> 
+                            <p>
+                                <a href={`https://github.com/${props.authorText}`}>{props.authorText}</a>
+                            </p> 
                         </div>
                         {
                             (props.topC) ?

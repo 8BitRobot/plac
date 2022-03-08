@@ -52,50 +52,53 @@ function getFromDb(item, col, process) {
 }
 
 app.post("/add-review", function (req, res) {
-    if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") ||  (!req.cookies.token || req.cookies.token === "undefined")) {
-	res.send({status: 400});
-    }
-    else {
-	function process(username) {
+  if (!req.body.hasOwnProperty("rating") || !req.body.hasOwnProperty("summary") || !req.body.hasOwnProperty("description") || !req.body.hasOwnProperty("link") ||  (!req.cookies.token || req.cookies.token === "undefined")) {
+	  res.send({status: 400});
+  }
+  else {
+  	function process(username) {
 	    data = req.body;
 	    data["username"] = username;
+      if (!data.link.includes("https://")) data.link = "https://" + data.link;
 	    addToDb(data, "reviews");
 	    res.send({status : 200});
-	}
-	getUsername(req.cookies.token, process);
-    }
+	  }
+	  getUsername(req.cookies.token, process);
+  }
 });
 
 app.get("/get-review", function (req, res) {
-    async function process(reviews) {
-	let notFlagged = [];
-	for (var review of reviews) {
-	    if (!review.hasOwnProperty("flagged") || review.flagged < 2) {
-		let repos = [];
-		try {
-		    let response = await axios({
-			method: "GET",
-			url: `https://api.github.com/users/${review.username}/repos`,
-		    });
-		    repos = response.data;
-		}
-		catch (err) {
-
-		}
-		let cnt = 0;
-		
-		for (var repo of repos) {
-		    cnt += repo.stargazers_count + repo.watchers_count;
-		}
-		console.log(cnt);
-		review["top_contributor"] = (cnt >= 10);
-		console.log(review["top_contributor"]);
-		notFlagged.push(review);
-	    }
-	}
-	res.send(notFlagged);
+  async function process(reviews) {
+    let notFlagged = [];
+    for (var review of reviews) {
+      if (!review.hasOwnProperty("flagged") || review.flagged < 2) {
+        let repos = [];
+        try {
+          let response = await axios({
+            method: "GET",
+            url: `https://api.github.com/users/${review.username}/repos`,
+            headers: {
+              Authorization: "token " + token,
+            },
+          });
+          repos = response.data;
+        }
+        catch (err) {}
+        let cnt = 0;
+        
+        for (var repo of repos) {
+          cnt += repo.stargazers_count + repo.watchers_count;
+          if (cnt >= 10) break; // remove this if making the threshold higher
+        }
+        console.log(cnt);
+        review["top_contributor"] = (cnt >= 10);
+        console.log(review["top_contributor"]);
+        notFlagged.push(review);
+      }
     }
-    getFromDb({name : req.query.name}, "reviews", process);
+    res.send(notFlagged);
+  }
+  getFromDb({name : req.query.name}, "reviews", process);
 });
 
 app.post("/login", function (req, res) {
@@ -169,29 +172,32 @@ app.get("/search-review", function (req, res) {
 });
 
 app.get("/get-reputation", function(req, res) {
-    if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies.token === "undefined" || req.cookies.token === undefined) {
-	    res.send(JSON.stringify({high_reputation: false}));
-    }
-    else {
-      async function process(username) {
-        let response = await axios({
-          method: "GET",
-          url: `https://api.github.com/users/${username}/repos`,
-        });
-        repos = response.data;
-        let cnt = 0;
-        for (var repo of repos) {
-          cnt += repo.stargazers_count + repo.watchers_count;
-        }
-        if (cnt >= 10) {
-          res.send(JSON.stringify({high_reputation: true}));
-        }
-        else {
-          res.send(JSON.stringify({high_reputation: false}));
-        }
+  if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies.token === "undefined" || req.cookies.token === undefined) {
+    res.send(JSON.stringify({high_reputation: false}));
+  } else {
+    async function process(username) {
+      let requestBody = {
+        method: "GET",
+        url: `https://api.github.com/users/${username}/repos`,
+        headers: {
+          Authorization: `token ${req.cookies.token}`
+        },
+      };
+      let response = await axios(requestBody);
+      repos = response.data;
+      let cnt = 0;
+      for (var repo of repos) {
+        cnt += repo.stargazers_count + repo.watchers_count;
       }
-      getUsername(req.cookies.token, process)
+      if (cnt >= 10) {
+        res.send(JSON.stringify({high_reputation: true}));
+      }
+      else {
+        res.send(JSON.stringify({high_reputation: false}));
+      }
     }
+    getUsername(req.cookies.token, process)
+  }
   // async function process(username) {
   //   let response = await axios({
   //       method: "GET",
@@ -243,15 +249,17 @@ app.get("/language-data", function (req, res) {
     });
   }
   function getLanguageData(owner, repo, process) {
-    console.log(owner);
-    console.log(repo);
-    axios({
+    let requestBody = {
       method: "GET",
       url: `https://api.github.com/repos/${owner}/${repo}/languages`,
       headers: {
         Accept: "application/vnd.github.v3+json",
       },
-    }).then((response) => {
+    };
+    if (Object.prototype.hasOwnProperty.call(req.cookies, "token") && req.cookies["token"] !== "undefined") {
+      requestBody.headers.Authorization = `token ${req.cookies.token}`
+    };
+    axios(requestBody).then((response) => {
       if (response.status === 200) {
         process(response.data);
       } else {

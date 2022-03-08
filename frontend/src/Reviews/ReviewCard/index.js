@@ -105,7 +105,7 @@ function ReviewCard(props) {
                 {props.link !== "" && props.link !== undefined ?
                     <div className="last">
                         <Popup
-                            trigger={open => (<a>See the code.</a>)} // href={props.link}
+                            trigger={open => (<a href={props.link}>See the code.</a>)}
                             on={["hover"]}
                             position="top center"
                             closeOnDocumentClick

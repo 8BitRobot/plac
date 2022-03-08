@@ -36,7 +36,7 @@ function Submit() {
         let response = await request.json();
         console.log("Success!");
         console.log(response);
-        window.location.reload();
+        window.location.href = `/review?name=${langname}`;
     }
     return (
         <div id="submit-page" className="App">

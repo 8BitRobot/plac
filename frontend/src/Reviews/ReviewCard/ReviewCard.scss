@@ -120,18 +120,24 @@
         }
     }
 
-    .last a {
-        margin-top: 16px;
-        display: block;
-        text-align: right;
-        color: var.$main-blue;
-        font-style: italic;
-        font-weight: bold;
-        text-decoration: none;
+    .last {
+        display: flex;
+        justify-content: end;
+        justify-content: flex-end;
+
+        a {
+            margin-top: 16px;
+            display: inline-block;
+            text-align: right;
+            color: var.$main-blue;
+            font-style: italic;
+            font-weight: bold;
+            text-decoration: none;
+        }
     }
 
     .lastRed a {
-	margin-top: 16px;
+	    margin-top: 16px;
         display: block;
         text-align: right;
         color: var.$main-red;
@@ -141,3 +147,66 @@
     }
 }
 
+.repo-insights {
+    h2 {
+        font-size: 32px;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: normal;
+        font-size: 24px;
+        color: var.$main-blue;
+    }
+}
+
+.popup-arrow {
+    color: var.$background;
+}
+
+.popup-content {
+    min-height: 100px;
+    width: 300px;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: var.$background;
+    box-shadow: var.$box-shadow;
+    border-radius: var.$bradius;
+}
+
+.language-graph-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: stretch;
+    align-items: center;
+
+    h4 {
+        margin: 0;
+        height: 30px;
+        line-height: 30px;
+        display: inline-block;
+        width: 36%;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    & > div {
+        flex-grow: 1;
+        display: inline-flex;
+        align-items: center;
+        height: 30px;
+
+        div {
+            height: 4px;
+            border-radius: 2px;
+            background-color: var.$main-blue;
+        }
+        
+        &:first-child div {
+            background-color: var.$main-green;
+        }
+    }
+}

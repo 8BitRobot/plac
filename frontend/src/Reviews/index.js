@@ -58,6 +58,7 @@ function Reviews() {
               <h2>No reviews found. Be the first to submit one!</h2>
               : reviews.map(function(d, idx){
               return (<ReviewCard
+                key={idx}
                 rating={d.rating}
                 titleText={d.summary}
                 secondText = {d.description}

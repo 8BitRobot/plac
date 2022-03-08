@@ -202,6 +202,49 @@ app.get("/get-reputation", function(req, res) {
   // getUsername(req.cookies.token, process)
 });
 
+app.get("/language-data", function (req, res) {
+  let [owner, repo] = req.query.link.split("/").slice(-2);
+  function process(data) {
+    console.log(data);
+    let langs = Object.entries(data);
+    let sum = 0;
+    for (let lang of langs.slice(1)) {
+      sum += lang[1];
+    }
+    res.send({
+      success: true,
+      sum: sum,
+      repoId: `${owner}/${repo}`,
+      langs: langs,
+    });
+  }
+  function getLanguageData(owner, repo, process) {
+    console.log(owner);
+    console.log(repo);
+    axios({
+      method: "GET",
+      url: `https://api.github.com/repos/${owner}/${repo}/languages`,
+      headers: {
+        Accept: "application/vnd.github.v3+json",
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        process(response.data);
+      } else {
+        res.send({
+          success: false,
+        });
+      }
+    }).catch((err) => {
+      console.error("failed");
+      res.send({
+        success: false,
+      })
+    });
+  }
+  getLanguageData(owner, repo, process);
+});
+
 //get username from github api token
 app.get("/get-username", function (req, res) {
   if (!Object.prototype.hasOwnProperty.call(req.cookies, "token") || req.cookies["token"] === "undefined") {
@@ -209,7 +252,7 @@ app.get("/get-username", function (req, res) {
   }
   else {
     function process(username) {
-        res.send(JSON.stringify({username: username}));
+      res.send(JSON.stringify({username: username}));
     }
     getUsername(req.cookies.token, process);
   }

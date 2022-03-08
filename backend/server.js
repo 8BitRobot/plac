@@ -21,7 +21,7 @@ app.use(express.json());
 
 var db = require("./mongo.js");
 
-let { clientID, clientSecret } = require("./githubsso.json");
+let { clientID, clientSecret, apiToken } = require("./githubsso.json");
 const { MinKey } = require("mongodb");
 
 app.listen(port, () => {
@@ -78,7 +78,7 @@ app.get("/get-review", function (req, res) {
             method: "GET",
             url: `https://api.github.com/users/${review.username}/repos`,
             headers: {
-              Authorization: "token " + token,
+              Authorization: "token " + apiToken,
             },
           });
           repos = response.data;
@@ -180,7 +180,7 @@ app.get("/get-reputation", function(req, res) {
         method: "GET",
         url: `https://api.github.com/users/${username}/repos`,
         headers: {
-          Authorization: `token ${req.cookies.token}`
+            Authorization: "token " + apiToken,
         },
       };
       let response = await axios(requestBody);

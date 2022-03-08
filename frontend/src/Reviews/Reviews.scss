@@ -4,8 +4,15 @@
   padding: 55px;
 }
 
+#submission-error {
+  margin-top: 60px;
+  font-size: 42px;
+  text-align: center;
+}
+
 #review-subject {
-  margin-bottom: 93px;
+  display: flex;
+  align-items: center;
 
   h1, h2 {
     margin: 0;
@@ -13,7 +20,7 @@
 
   h1 {
     display: inline-block;
-    width: 25%;
+    width: 33%;
     font-size: 70px;
     font-family: 'Manrope';
     font-weight: 700;
@@ -22,6 +29,7 @@
 
   h2 {
     display: inline-block;
+    margin-left: 30px;
     font-size: 30px;
     font-family: "Montserrat";
     color: #000000;

@@ -7,7 +7,7 @@
     display: flex;
     flex-flow: row;
     background-color:var.$background;
-    box-shadow: var.$box-shadow;
+    // box-shadow: var.$box-shadow;
     margin-top: 20px;
     margin-right: 40px;
 
@@ -24,12 +24,13 @@
         font-size: 18px;
         font-weight: 700;
     }
-    svg{
-        margin-left: 14px;
-        padding-top: 10px;
-        display: inline-block;
-        height: 20px;
-        width: 20px;
-        padding-right:5px;
+
+    *::-webkit-scrollbar {
+        display: none;
+    }
+
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 }

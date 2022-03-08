@@ -57,18 +57,19 @@ function Reviews() {
               : (reviews.length === 0 ? 
               <h2>No reviews found. Be the first to submit one!</h2>
               : reviews.map(function(d, idx){
-              return (<ReviewCard
-                key={idx}
-                rating={d.rating}
-                titleText={d.summary}
-                secondText = {d.description}
-                authorText = {d.username}
-                topC = {true}
-                link = {d.link}
-                flagged = {!d.flagged ? 0 : d.flagged}
-                _id = {d._id}
-              />)
-            }))}
+                  return (<ReviewCard
+                    key={idx}
+                    rating={d.rating}
+                    titleText={d.summary}
+                    secondText = {d.description}
+                    authorText = {d.username}
+                    topC = {true}
+                    link = {d.link}
+                    flagged = {!d.flagged ? 0 : d.flagged}
+                    _id = {d._id}
+                  />)
+              }))
+            }
           </div>
         </> :
         <h1 id="submission-error">Select a language to read reviews for with the search bar above.</h1>

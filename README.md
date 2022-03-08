@@ -30,13 +30,14 @@ npm install
 npm start
 ```
 ## To Start the Backend (Node and MongoDB):
-Create a file `backend/githubsso.json` and put your github `clientID` and `clientSecret` inside in JSON format. Explanations for `clientID` and `clientSecret` can be found [here](https://docs.github.com/en/rest/guides/basics-of-authentication).
+Create a file `backend/githubsso.json` and put your github `clientID` and `clientSecret` inside in JSON format. Explanations for `clientID` and `clientSecret` can be found [here](https://docs.github.com/en/rest/guides/basics-of-authentication). Also generate an API token using [these](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) instructions and place it in the file as `apiToken`.
 
 An example is 
 ```
 {
 "clientId" : "[this is the clientID]"
 "clientSecret: "[this is the clientSecret]"
+"apiToken" : "[this is the apiToken]"
 }
 ```
 

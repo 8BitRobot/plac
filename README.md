@@ -41,7 +41,6 @@ To start the project, first clone the github repository using the command:
 
 ## Run Backend Shell Scripts:
 
-#### ./dblanguages.sh
 1. Populate the database with a list of programming languages: ./dblanguages.sh
 
 2. Populate the database with a list of reviews for the existing languages: ./dbpopulate.sh
